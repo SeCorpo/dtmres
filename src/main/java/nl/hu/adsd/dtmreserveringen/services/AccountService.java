@@ -6,9 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
-
 @Service
 public class AccountService {
     private final Logger logger = LoggerFactory.getLogger(AccountService.class);
@@ -18,9 +15,31 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public Optional<Account> getAccount(Long id) {
-        logger.info("jo");
-        return accountRepository.findById(id);
+    //TODO: fix json to string, or use encryption
+    public boolean isPasswordCorrectForAccount(String email, String password) {
+        logger.info("Checking if password is correct for account with email: {}", email);
+        Account account = getAccountByEmail(email);
 
+        String correctPassword = "\"" + account.getPassword() + "\"";
+
+        logger.info("Correct password: {}, input password: {}", correctPassword, password);
+        return correctPassword.equals(password);
     }
+    public boolean isAccountAdmin(String email) {
+        logger.info("Checking if account with email: {} is an admin", email);
+        Account account = getAccountByEmail(email);
+        return account != null && account.getAdmin() == 1;
+    }
+
+    public boolean doesAccountExist(String email) {
+        logger.info("Checking if account with email: {} exists", email);
+        return getAccountByEmail(email) != null;
+    }
+    public Account getAccountByEmail(String email) {
+        logger.info("Fetching account with email: {}", email);
+        return accountRepository.getAccountByEmail(email);
+    }
+
+
+
 }

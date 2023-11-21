@@ -105,6 +105,20 @@ async function validReservation() {
         return false;
     }
 
+    const email = emailField.value.trim();
+
+    if (email === "") {
+        alert("Voer eerst je email in");
+        return false;
+    }
+
+    const emailPattern = /^[^\s@]+@student\.hu\.nl$/;
+
+    if (!emailPattern.test(email)) {
+        alert("Je email moet een student.hu.nl adres zijn");
+        return false;
+    }
+
     const startDate = calendar.selectedStartDate;
     const endDate = calendar.selectedEndDate;
     const products = await StorageManager.getAllProducts();

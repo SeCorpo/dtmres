@@ -40,18 +40,10 @@ adminPasswordField.addEventListener("keypress", e => {
 
                // Toggle the eye/eye-off icon
                togglePasswordImage.src = isPasswordVisible ?
-                   '../icons/eye-outline.svg' : // Path to the eye icon
-                   '../icons/eye-off-outline.svg'; // Path to the eye-off icon
+                   '../icons/eye-outline.svg' :
+                   '../icons/eye-off-outline.svg';
            });
        });
-
-//passwordVisibleToggle.addEventListener("click", e => {
-//    if (adminPasswordField.type === "password") {
-//        adminPasswordField.type = "text";
-//    } else {
-//        adminPasswordField.type = "password";
-//    }
-//});
 
 async function passwordCheck(password) {
     const response = await fetch('admin/login', {

@@ -13,7 +13,7 @@ public class WebController {
 
     @RequestMapping("/product")
     public String product() {
-        return "html/info-page.html";
+        return "html/product-info.html";
     }
 
     @RequestMapping("/login")

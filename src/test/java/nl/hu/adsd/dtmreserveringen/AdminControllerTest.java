@@ -58,10 +58,10 @@ class AdminControllerTest {
     void testNotExistingAccount() {
         // Arrange
         AccountService accountService = Mockito.mock(AccountService.class);
-        Mockito.when(accountService.doesAccountExist("ik_besta_niet@hu.nl")).thenReturn(false);
+        Mockito.when(accountService.doesAccountExist("i_do_not_exits@hu.nl")).thenReturn(false);
 
         AdminController adminController = new AdminController(accountService);
-        adminController.setEmail("ik_besta_niet@hu.nl");
+        adminController.setEmail("i_do_not_exits@hu.nl");
         ResponseEntity<Boolean> response = adminController.isPasswordCorrect("anyPassword");
 
         assertNotEquals(Boolean.TRUE, response.getBody());

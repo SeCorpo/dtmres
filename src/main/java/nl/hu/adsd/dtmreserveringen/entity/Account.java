@@ -21,14 +21,16 @@ public class Account {
     private int id;
 
     @NotNull
+    @Column(columnDefinition = "TINYINT(1) DEFAULT 0")
+    private int admin;
+
+    @NotNull
     private String email;
 
     @NotNull
     private String password;
 
-    @NotNull
-    @Column(columnDefinition = "TINYINT(1) DEFAULT 0")
-    private int admin;
+
 
 
 //    @JsonBackReference(value = "Account -> Reservations")

@@ -1,70 +1,43 @@
 import {StorageManager} from "../classes/storageManager.js";
 
-const adminLoginDiv = document.getElementById("wrapper");
-const adminPasswordField = document.getElementById("admin-password");
-const adminPasswordButton = document.getElementById("admin-password-button");
-//const passwordVisibleToggle = document.getElementById("show-password-toggle-admin-login");
+// const adminLoginDiv = document.getElementById("wrapper");
+// const adminPasswordField = document.getElementById("admin-password");
+// const adminPasswordButton = document.getElementById("admin-password-button");
+// //const passwordVisibleToggle = document.getElementById("show-password-toggle-admin-login");
 
-adminPasswordButton.addEventListener("click", async e => {
-    e.preventDefault();
-    if (await passwordCheck(adminPasswordField.value)) {
-        await loadReservationTable();
-    } else {
-        adminPasswordField.value = '';
+// adminPasswordButton.addEventListener("click", async e => {
+//     e.preventDefault();
+//     if (await loginCheck(adminPasswordField.value)) {
+//         await loadReservationTable();
+//     } else {
+//         adminPasswordField.value = '';
+//
+//           document.getElementById("error-message").style.display = 'block';
+//     }
+// });
 
-          document.getElementById("error-message").style.display = 'block';
-    }
+
+
+document.addEventListener('DOMContentLoaded', async (event) => {
+    // const togglePassword = document.getElementById('toggle-password');
+    // const adminPasswordField = document.getElementById('admin-password'); // Make sure this ID matches your HTML
+    // const togglePasswordImage = togglePassword.querySelector('img');
+    //
+    // togglePassword.addEventListener('click', () => {
+    //     // Check if the password is currently visible
+    //     const isPasswordVisible = adminPasswordField.getAttribute('type') === 'text';
+    //     adminPasswordField.setAttribute('type', isPasswordVisible ? 'password' : 'text');
+    //
+    //     // Toggle the eye/eye-off icon
+    //     togglePasswordImage.src = isPasswordVisible ?
+    //         '../icons/eye-outline.svg' :
+    //         '../icons/eye-off-outline.svg';
+    // });
+
+    await loadReservationTable();
 });
-// Hide the error message when the user starts typing a new password
-adminPasswordField.addEventListener("input", e => {
-    document.getElementById("error-message").style.display = 'none';
-});
-
-adminPasswordField.addEventListener("keypress", e => {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        adminPasswordButton.click();
-    }
-});
 
 
-       document.addEventListener('DOMContentLoaded', (event) => {
-           const togglePassword = document.getElementById('toggle-password');
-           const adminPasswordField = document.getElementById('admin-password'); // Make sure this ID matches your HTML
-           const togglePasswordImage = togglePassword.querySelector('img');
-
-           togglePassword.addEventListener('click', () => {
-               // Check if the password is currently visible
-               const isPasswordVisible = adminPasswordField.getAttribute('type') === 'text';
-               adminPasswordField.setAttribute('type', isPasswordVisible ? 'password' : 'text');
-
-               // Toggle the eye/eye-off icon
-               togglePasswordImage.src = isPasswordVisible ?
-                   '../icons/eye-outline.svg' :
-                   '../icons/eye-off-outline.svg';
-           });
-       });
-
-async function passwordCheck(password) {
-    const response = await fetch('admin/login', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(password),
-    });
-
-
-
-    if (!response.ok) {
-        console.log("All reservations: response is error; Status code: " + response.status);
-        alert("Er is een fout opgetreden bij het verifiëren van het wachtwoord. Probeer het opnieuw");
-        return false;
-    } else {
-        return await response.json();
-    }
-}
 
 
 //Switches from the login display to the reservation display.
@@ -72,9 +45,9 @@ async function passwordCheck(password) {
 //The reservation display only gets loaded when the password is entered
 async function loadReservationTable() {
     //switch view
-    adminLoginDiv.style.display = "none";
+    //adminLoginDiv.style.display = "none";
     const reservationDisplay = document.getElementById("reservation-display-div");
-    reservationDisplay.style.display = "";
+    reservationDisplay.style.display = "block";
 
     getTableHeader();
     await setReservationTable();

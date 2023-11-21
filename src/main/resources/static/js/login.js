@@ -1,67 +1,54 @@
-const registrationButton = document.getElementById("register-button");
-const registerEmail = document.getElementById("login-email");
-const registerPassword = document.getElementById("login-password");
-const registerRepeatPassword = document.getElementById("repeat-password");
+const loginButton = document.getElementById("login-button")
+const loginEmail = document.getElementById("login-email");
+const loginPassword = document.getElementById("login-password");
 
 
-registrationButton.addEventListener("click", e => {
-    e.preventDefault();
-        let email = registerEmail.value;
-        let password = registerPassword.value;
-        let confirmPassword = registerRepeatPassword.value;
-        let admin = 1;
-
-            if (!validateEmail(email)) {
-                alert("Voer een geldig e-mailadres in.");
-                return;
-            }
-
-            if (!validatePassword(password)) {
-                alert("Voer een wachtwoord in van minimaal 8 tekens + een cijfer.");
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                alert("Wachtwoorden komen niet overeen.");
-                return;
-            }
-
-        let accountData = {
-            email: email,
-            password: password,
-            admin: admin
-        };
-
-        console.log(JSON.stringify(accountData));
-        fetch("/api/account/add", {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(accountData)
-            })
-            .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Success:', data);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-
+// Hide the error message when the user starts typing
+loginEmail.addEventListener("input", e => {
+    document.getElementById("error-message").style.display = 'none';
 });
+loginPassword.addEventListener("input", e => {
+    document.getElementById("error-message").style.display = 'none';
+});
+loginButton.addEventListener("click", async e => {
+    e.preventDefault();
+    let email = loginEmail.value;
+    let password = loginPassword.value;
 
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-}
-
-function validatePassword(password) {
-    const re = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
-    return re.test(password);
+    if (email != null && password != null) {
+        if (await loginCheck(email, password)) {
+            console.log("Admin login successful")
+            window.location.href = '/admin';
+        } else {
+            loginEmail.value = "";
+            loginPassword.value = "";
+            document.getElementById("error-message").style.display = 'block';
+        }
     }
+})
+
+
+async function loginCheck(email, password) {
+    try {
+        const response = await fetch('/api/login/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email: email, password: password}),
+        });
+
+        if (!response.ok) {
+            console.log("All reservations: response is error; Status code: " + response.status);
+            alert("Er is een fout opgetreden bij het verifiëren van het wachtwoord. Probeer het opnieuw");
+            return false;
+        } else {
+            return await response.json();
+
+        }
+    } catch(error) {
+        console.error("Error during login request:", error);
+        return false;
+    }
+}

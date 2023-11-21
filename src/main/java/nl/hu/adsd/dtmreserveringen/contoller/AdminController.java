@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/admin")
 public class AdminController {
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String email = "admin.admin@hu.nl";
 
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
     private final AccountService accountService;
@@ -23,24 +18,5 @@ public class AdminController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Boolean> isPasswordCorrect(@RequestBody String password) {
 
-        if(!accountService.doesAccountExist(email)) {
-            logger.info("Account with email: {} does not exist", email);
-            return ResponseEntity.ok(false);
-        }
-
-        if(!accountService.isAccountAdmin(email)) {
-            logger.info("Account with email: {} does exist but is not an Admin", email);
-            return ResponseEntity.ok(false);
-        }
-
-        if(!accountService.isPasswordCorrectForAccount(email, password)) {
-            logger.info("Given password does not match");
-            return ResponseEntity.ok(false);
-        }
-
-        return ResponseEntity.ok(true);
-    }
 }

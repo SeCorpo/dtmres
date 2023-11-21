@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/login-register.css">
+    <script type="module" src="../js/login.js"></script>
+
 </head>
 
 <body>
@@ -32,7 +34,7 @@
                                 <img src="../icons/cart-outline.svg" alt="Cart Icon">
                                 <span id="cart-amount" class="button-badge">0</span>
                             </a>
-                            <a href="/admin">
+                            <a href="/login">
                                 <img src="../icons/person-outline.svg" alt="Admin Icon">
                             </a>
                         </div>
@@ -46,17 +48,20 @@
         <div class="form-wrapper">
             <form action="">
                 <h1>inloggen</h1>
-                <div class="input-box">
-                    <img src="../icons/person-outline.svg" alt="Admin Icon"></a>
-                    <input type="email" placeholder="Example@student.hu.nl" required>
+                <div id="error-message" style="display: none; color: red;">
+                    Login is niet gelukt. Probeer opnieuw.
                 </div>
                 <div class="input-box">
                     <img src="../icons/person-outline.svg" alt="Admin Icon"></a>
-                    <input type="password" placeholder="Password" required>
+                    <input type="email" placeholder="Example@student.hu.nl" required id="login-email">
                 </div>
-                <button type="submit" class="login">Inloggen</button>
+                <div class="input-box">
+                    <img src="../icons/person-outline.svg" alt="Admin Icon"></a>
+                    <input type="password" placeholder="Password" required id="login-password">
+                </div>
+                <button type="submit" class="login" id="login-button">Inloggen</button>
                 <a href="/register">
-                    <button type="button" class="register">Maak nieuw account aan</button>
+                    <button type="button" class="register" id="register-button">Maak nieuw account aan</button>
                 </a>
                 <div class="remember-forgot">
                     <label><input type="checkbox">Onthoud mij</label>

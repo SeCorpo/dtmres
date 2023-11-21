@@ -28,7 +28,7 @@
 
                         <img class="topbar-logo" src="../icons/HU_logo_small.svg" alt="HU logo">
                         <div class="topbar-text-container">
-                            <h1>DTM-Reserveringen</h1>
+                            <h1>DTM-Reserveringen Administration</h1>
                         </div>
 
                     </a>
@@ -40,7 +40,7 @@
                                 <img src="../icons/cart-outline.svg" alt="Cart Icon">
                                 <span id="cart-amount" class="button-badge">0</span>
                             </a>
-                            <a href="/admin">
+                            <a href="/login">
                                 <img src="../icons/person-outline.svg" alt="Admin Icon">
                             </a>
                         </div>
@@ -52,31 +52,32 @@
 
     <main>
         <!-- login div -->
-        <div class="wrapper" id="wrapper">
-            <div id="admin-login-div">
-                <div class="box-form">
-                    <h1>Inloggen</h1>
-                    <div id="error-message" style="display: none; color: red;">
-                        Login is niet gelukt. Probeer opnieuw.
-                    </div>
-                    <label for="admin-password"></label><br>
-                    <div class="input-box">
-                        <input type="password" id="admin-password" autofocus placeholder="Wachtwoord" required>
-                        <button type="button" id="toggle-password" class="toggle-password">
-                            <img src="../icons/eye-outline.svg" alt="Show Password">
-                        </button>
-                    </div>
-                    <button id="admin-password-button">Inloggen</button>
-<!--                    <div class="checkbox-container">-->
-<!--                        <input type="checkbox" id="show-password-toggle-admin-login">-->
-<!--                        <label for="show-password-toggle-admin-login">Laat wachtwoord zien</label>-->
+<!--        <div class="wrapper" id="wrapper">-->
+<!--            <div id="admin-login-div">-->
+<!--                <div class="box-form">-->
+<!--                    <h1>Inloggen</h1>-->
+<!--                    <div id="error-message" style="display: none; color: red;">-->
+<!--                        Login is niet gelukt. Probeer opnieuw.-->
 <!--                    </div>-->
-                </div>
-            </div>
-        </div>
+<!--                    <label for="admin-password"></label><br>-->
+<!--                    <div class="input-box">-->
+<!--                        <input type="password" id="admin-password" autofocus placeholder="Wachtwoord" required>-->
+<!--                        <button type="button" id="toggle-password" class="toggle-password">-->
+<!--                            <img src="../icons/eye-outline.svg" alt="Show Password">-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    <button id="admin-password-button">Inloggen</button>-->
+<!--&lt;!&ndash;                    <div class="checkbox-container">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="checkbox" id="show-password-toggle-admin-login">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label for="show-password-toggle-admin-login">Laat wachtwoord zien</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <!-- reservation display div -->
-        <div class="container" id="reservation-display-div" style="display: none">
+        <div class="container" id="reservation-display-div">
+            Login as an Admin
             <table id="reservation-table">
             </table>
         </div>

@@ -18,17 +18,14 @@ public class AccountService {
     //TODO: fix json to string, or use encryption
     public boolean isPasswordCorrectForAccount(String email, String password) {
         logger.info("Checking if password is correct for account with email: {}", email);
-        Account account = getAccountByEmail(email);
-
-        String correctPassword = "\"" + account.getPassword() + "\"";
+        String correctPassword = getAccountByEmail(email).getPassword();
 
         logger.info("Correct password: {}, input password: {}", correctPassword, password);
         return correctPassword.equals(password);
     }
     public boolean isAccountAdmin(String email) {
         logger.info("Checking if account with email: {} is an admin", email);
-        Account account = getAccountByEmail(email);
-        return account != null && account.getAdmin() == 1;
+        return getAccountByEmail(email).getAdmin() == 1;
     }
 
     public boolean doesAccountExist(String email) {

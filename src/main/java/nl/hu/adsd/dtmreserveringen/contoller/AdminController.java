@@ -1,8 +1,8 @@
 package nl.hu.adsd.dtmreserveringen.contoller;
 
+import nl.hu.adsd.dtmreserveringen.services.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,15 +10,37 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/admin")
 public class AdminController {
-    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    @Value("${ADMIN_PASSWORD}")
-    private String correctPassword;
+    public String email = "admin.admin@hu.nl";
+
+    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+    private final AccountService accountService;
+
+    public AdminController(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<Boolean> isPasswordCorrect(@RequestBody String password) {
-        logger.info(password, "input");
-        logger.info(correctPassword, "correct password");
-        return ResponseEntity.ok(password.equals(correctPassword));
+
+        if(!accountService.doesAccountExist(email)) {
+            logger.info("Account with email: {} does not exist", email);
+            return ResponseEntity.ok(false);
+        }
+
+        if(!accountService.isAccountAdmin(email)) {
+            logger.info("Account with email: {} does exist but is not an Admin", email);
+            return ResponseEntity.ok(false);
+        }
+
+        if(!accountService.isPasswordCorrectForAccount(email, password)) {
+            logger.info("Given password does not match");
+            return ResponseEntity.ok(false);
+        }
+
+        return ResponseEntity.ok(true);
     }
 }

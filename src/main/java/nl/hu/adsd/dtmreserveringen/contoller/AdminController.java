@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/admin")
 public class AdminController {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String email = "admin.admin@hu.nl";
+
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
     private final AccountService accountService;
 
@@ -19,9 +25,6 @@ public class AdminController {
 
     @PostMapping("/login")
     public ResponseEntity<Boolean> isPasswordCorrect(@RequestBody String password) {
-        String email = "admin.admin@hu.nl";
-        //String email = "user@student.hu.nl"; // no admin
-        //String email = "ik_besta_niet@hu.nl"; // account/email not existing
 
         if(!accountService.doesAccountExist(email)) {
             logger.info("Account with email: {} does not exist", email);

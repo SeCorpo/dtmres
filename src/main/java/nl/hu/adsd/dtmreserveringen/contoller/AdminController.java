@@ -3,10 +3,9 @@ package nl.hu.adsd.dtmreserveringen.contoller;
 import nl.hu.adsd.dtmreserveringen.services.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(originPatterns = "http://localhost:[*]")
+@CrossOrigin(originPatterns = "http://localhost:8080/admin")
 @RestController
 @RequestMapping(path = "/admin")
 public class AdminController {

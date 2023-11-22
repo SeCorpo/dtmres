@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AccountService {
     private final Logger logger = LoggerFactory.getLogger(AccountService.class);
@@ -15,28 +17,31 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    //TODO: fix json to string, or use encryption
     public boolean isPasswordCorrectForAccount(String email, String password) {
         logger.info("Checking if password is correct for account with email: {}", email);
-        String correctPassword = getAccountByEmail(email).getPassword();
+        Optional<Account> optionalAccount = getAccountByEmail(email);
 
-        logger.info("Correct password: {}, input password: {}", correctPassword, password);
-        return correctPassword.equals(password);
+        return optionalAccount.map(account -> {
+            String correctPassword = account.getPassword();
+            logger.info("Correct password: {}, input password: {}", correctPassword, password);
+            return correctPassword.equals(password);
+        }).orElse(false);
     }
+
     public boolean isAccountAdmin(String email) {
         logger.info("Checking if account with email: {} is an admin", email);
-        return getAccountByEmail(email).getAdmin() == 1;
+        return getAccountByEmail(email)
+                .map(account -> account.getAdmin() == 1)
+                .orElse(false);
     }
 
     public boolean doesAccountExist(String email) {
         logger.info("Checking if account with email: {} exists", email);
-        return getAccountByEmail(email) != null;
+        return getAccountByEmail(email).isPresent();
     }
-    public Account getAccountByEmail(String email) {
+
+    public Optional<Account> getAccountByEmail(String email) {
         logger.info("Fetching account with email: {}", email);
-        return accountRepository.getAccountByEmail(email);
+        return Optional.ofNullable(accountRepository.getAccountByEmail(email));
     }
-
-
-
 }

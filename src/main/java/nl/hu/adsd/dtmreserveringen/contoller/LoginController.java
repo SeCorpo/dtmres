@@ -1,14 +1,15 @@
 package nl.hu.adsd.dtmreserveringen.contoller;
 
-import nl.hu.adsd.dtmreserveringen.dto.AccountDTO;
 import nl.hu.adsd.dtmreserveringen.services.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 
-@CrossOrigin(originPatterns = "http://localhost:[*]")
+
+@CrossOrigin(originPatterns = "http://localhost:8080/login")
 @RestController
 @RequestMapping(path = "/api/login")
 public class LoginController {
@@ -21,9 +22,14 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody AccountDTO accountDTO) {
-        String email = accountDTO.getEmail();
-        String password = accountDTO.getPassword();
+    public ResponseEntity<Boolean> login(@RequestBody Map<String, String> requestBody) {
+        if(requestBody == null) {
+            logger.error("Request body is null");
+            return ResponseEntity.ok(false);
+        }
+
+        String email = requestBody.get("email");
+        String password = requestBody.get("password");
 
         logger.info("LoginController login attempt using email: {} and password: {}", email, password);
 
@@ -42,6 +48,8 @@ public class LoginController {
             return ResponseEntity.ok(false);
         }
 
+        logger.info("Login positive");
         return ResponseEntity.ok(true);
+
     }
 }

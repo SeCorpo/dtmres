@@ -4,10 +4,10 @@ const loginPassword = document.getElementById("login-password");
 
 
 // Hide the error message when the user starts typing
-loginEmail.addEventListener("input", e => {
+loginEmail.addEventListener("input", () => {
     document.getElementById("error-message").style.display = 'none';
 });
-loginPassword.addEventListener("input", e => {
+loginPassword.addEventListener("input", () => {
     document.getElementById("error-message").style.display = 'none';
 });
 loginButton.addEventListener("click", async e => {
@@ -15,20 +15,21 @@ loginButton.addEventListener("click", async e => {
     let email = loginEmail.value;
     let password = loginPassword.value;
 
-    if (email != null && password != null) {
-        if (await loginCheck(email, password)) {
-            console.log("Admin login successful")
-            window.location.href = '/admin';
-        } else {
-            loginEmail.value = "";
-            loginPassword.value = "";
-            document.getElementById("error-message").style.display = 'block';
-        }
+    if(await loginCheck(email, password)) {
+        console.log("Admin login successful")
+        window.location.href = '/admin';
+    } else {
+        loginPassword.value = "";
+        document.getElementById("error-message").style.display = 'block';
     }
 })
 
 
 async function loginCheck(email, password) {
+    if(email.trim() === '' || password.trim() === '') {
+        console.error("Email or password is null, undefined, or empty");
+        return false;
+    }
     try {
         const response = await fetch('/api/login/login', {
             method: 'POST',

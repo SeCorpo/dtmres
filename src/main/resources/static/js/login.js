@@ -2,13 +2,34 @@ const loginButton = document.getElementById("login-button")
 const loginEmail = document.getElementById("login-email");
 const loginPassword = document.getElementById("login-password");
 
+document.addEventListener('DOMContentLoaded', function () {
+    const togglePassword = document.getElementById('show-password');
+    const loginPasswordField = document.getElementById('login-password');
+    const showPassword = document.getElementById("show-password");
 
+    togglePassword.addEventListener('click', function () {
+        // Check if the password is currently visible
+        const isPasswordVisible = loginPasswordField.getAttribute('type') === 'text';
+        loginPasswordField.setAttribute('type', isPasswordVisible ? 'password' : 'text');
+
+        // Toggle the eye/eye-off icon
+        showPassword.src = isPasswordVisible ?
+            '../icons/eye-outline.svg' :
+            '../icons/eye-off-outline.svg';
+    });
+});
 // Hide the error message when the user starts typing
 loginEmail.addEventListener("input", () => {
     document.getElementById("error-message").style.display = 'none';
 });
 loginPassword.addEventListener("input", () => {
     document.getElementById("error-message").style.display = 'none';
+});
+loginPassword.addEventListener("keypress", e => {
+    if(e.key === "Enter") {
+        e.preventDefault();
+        loginButton.click();
+    }
 });
 loginButton.addEventListener("click", async e => {
     e.preventDefault();

@@ -1,7 +1,6 @@
 import {StorageManager} from "../classes/storageManager.js";
 
-document.addEventListener('DOMContentLoaded', async (event) => {
-
+document.addEventListener('DOMContentLoaded', async () => {
     await loadReservationTable();
 });
 

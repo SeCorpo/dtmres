@@ -13,5 +13,8 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     }
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1"
   }
 }

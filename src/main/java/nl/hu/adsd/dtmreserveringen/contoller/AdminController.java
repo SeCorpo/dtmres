@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+
 @CrossOrigin(originPatterns = "http://localhost:[*]")
 @RestController
 @RequestMapping(path = "/admin")
@@ -22,6 +25,15 @@ public class AdminController {
     public AdminController(AccountService accountService) {
         this.accountService = accountService;
     }
+/*
+    @PostMapping("/encrypt")
+            
+        String originalString = "hello";
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(
+                originalString.getBytes(StandardCharsets.UTF_8));
+        String sha256hex = new String(Hex.encode(hash));
+*/
 
     @PostMapping("/login")
     public ResponseEntity<Boolean> isPasswordCorrect(@RequestBody String password) {

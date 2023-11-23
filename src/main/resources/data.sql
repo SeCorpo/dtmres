@@ -104,4 +104,4 @@ INSERT IGNORE INTO item (id, product_id) VALUES
 INSERT IGNORE INTO account (id, admin, email, password) VALUES
     (1, 1, 'admin.admin@hu.nl', 'admin1'),
     (2, 0, 'user@student.hu.nl', 'password123'),
-    (3, 0, 'q', 't');
+    (3, 1, 'q', 't');

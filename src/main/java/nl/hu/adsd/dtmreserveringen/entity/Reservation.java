@@ -20,10 +20,7 @@ public class Reservation {
 
     @JsonManagedReference(value = "Reservation -> ItemReservations")
     @Fetch(FetchMode.JOIN)
-    @OneToMany(mappedBy = "reservation",
-     fetch = FetchType.EAGER,
-     cascade = CascadeType.ALL,
-     orphanRemoval=true)
+    @OneToMany(mappedBy = "reservation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ItemReservation> itemReservations;
 
 

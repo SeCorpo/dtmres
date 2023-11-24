@@ -21,6 +21,6 @@ public class Item {
     private Product product;
 
     @JsonBackReference(value = "Item -> ItemReservations")
-    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ItemReservation> itemReservations;
 }

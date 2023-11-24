@@ -39,7 +39,12 @@ public class ReservationService {
     }
 
     public void deleteReservationById(Long id) {
-      reservationRepository.deleteById(id);
+        try {
+            reservationRepository.deleteById(id);
+        } catch (Exception e) {
+            logger.info("Reservation with id {} not found {}", id, e.toString());
+
+        }
     }
 
     @Transactional

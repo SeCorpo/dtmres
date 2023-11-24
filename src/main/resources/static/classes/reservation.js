@@ -5,10 +5,12 @@ export class Reservation {
     constructor(id, itemReservations, email) {
         //values of product
         this.id = -1;
+        // list for itemreservations
         this.itemReservations = [];
         this.email = email;
     }
 
+    // a function to use the json from the database in the itemreservation class
     setValuesFromDbJson(dbJson) {
         this.id = dbJson.id;
         for (let i = 0; i < dbJson.itemReservations.length; i++) {
@@ -120,7 +122,7 @@ export class Reservation {
 
     async deleteReservation() {
         let returnStatus = "";
-        await fetch('reservation/delete/' + this.id, {
+        await fetch('/api/reservation/delete/' + this.id, {
             method: 'DELETE',
         })
             .then(res => res.text()) // or res.json()

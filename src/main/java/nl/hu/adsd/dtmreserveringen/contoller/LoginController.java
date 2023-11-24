@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 
-@CrossOrigin(originPatterns = "http://localhost:8080/login")
+@CrossOrigin(originPatterns = "http://localhost:[*]")
 @RestController
 @RequestMapping(path = "/api/login")
 public class LoginController {

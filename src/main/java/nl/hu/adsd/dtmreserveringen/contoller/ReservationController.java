@@ -2,7 +2,6 @@ package nl.hu.adsd.dtmreserveringen.contoller;
 
 import nl.hu.adsd.dtmreserveringen.dto.ReservationDTO;
 import nl.hu.adsd.dtmreserveringen.entity.Reservation;
-import nl.hu.adsd.dtmreserveringen.services.ItemReservationService;
 import nl.hu.adsd.dtmreserveringen.services.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

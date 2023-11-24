@@ -40,8 +40,6 @@ public class ReservationController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteReservationById(@PathVariable Long id) {
         try {
-            // won't delete reservation without first deleting itemReservation(s)
-            // TODO: add a Query that removes itemreservation using the reservation ID
             reservationService.deleteReservationById(id);
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (Exception e) {

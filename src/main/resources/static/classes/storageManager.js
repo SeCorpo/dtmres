@@ -4,6 +4,7 @@ import {Reservation} from "./reservation.js";
 import {ItemReservation} from "./itemReservation.js";
 
 export class StorageManager {
+    // WHY SESSIONSTORAGE (this whole class needs to be rewritten)
     static async setProductsInStorage() {
         try {
             const response = await fetch("/api/product/all");
@@ -88,9 +89,10 @@ export class StorageManager {
     }
 
     static async getReservations() {
-        if (sessionStorage.getItem(StorageKeys.RESERVATIONS) === null) {
+        //temporary fix
+        //if (sessionStorage.getItem(StorageKeys.RESERVATIONS) === null) {
             await this.setReservationsInStorage();
-        }
+       //}
         console.log("StorageManger returning reservations");
         const reservationsJson = JSON.parse(sessionStorage.getItem(StorageKeys.RESERVATIONS));
 

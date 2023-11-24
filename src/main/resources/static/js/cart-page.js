@@ -105,6 +105,22 @@ async function validReservation() {
         return false;
     }
 
+    const email = emailField.value.trim();
+
+    if (email === "") {
+        alert("Voer eerst je email in");
+        return false;
+    }
+
+    // Test if email is a student.hu.nl email address using regex
+    const emailPattern = /^[^\s@]+@student\.hu\.nl$/;
+
+    // if email is not a student.hu.nl email address show alert and return false
+    if (!emailPattern.test(email)) {
+        alert("Je email moet een student.hu.nl adres zijn");
+        return false;
+    }
+
     const startDate = calendar.selectedStartDate;
     const endDate = calendar.selectedEndDate;
     const products = await StorageManager.getAllProducts();

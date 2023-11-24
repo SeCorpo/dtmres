@@ -1,67 +1,76 @@
-const registrationButton = document.getElementById("register-button");
-const registerEmail = document.getElementById("login-email");
-const registerPassword = document.getElementById("login-password");
-const registerRepeatPassword = document.getElementById("repeat-password");
+const loginButton = document.getElementById("login-button")
+const loginEmail = document.getElementById("login-email");
+const loginPassword = document.getElementById("login-password");
 
+document.addEventListener('DOMContentLoaded', function () {
+    const togglePassword = document.getElementById('show-password');
+    const loginPasswordField = document.getElementById('login-password');
+    const showPassword = document.getElementById("show-password");
 
-registrationButton.addEventListener("click", e => {
-    e.preventDefault();
-        let email = registerEmail.value;
-        let password = registerPassword.value;
-        let confirmPassword = registerRepeatPassword.value;
-        let admin = 1;
+    togglePassword.addEventListener('click', function () {
+        // Check if the password is currently visible
+        const isPasswordVisible = loginPasswordField.getAttribute('type') === 'text';
+        loginPasswordField.setAttribute('type', isPasswordVisible ? 'password' : 'text');
 
-            if (!validateEmail(email)) {
-                alert("Voer een geldig e-mailadres in.");
-                return;
-            }
-
-            if (!validatePassword(password)) {
-                alert("Voer een wachtwoord in van minimaal 8 tekens + een cijfer.");
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                alert("Wachtwoorden komen niet overeen.");
-                return;
-            }
-
-        let accountData = {
-            email: email,
-            password: password,
-            admin: admin
-        };
-
-        console.log(JSON.stringify(accountData));
-        fetch("/api/account/add", {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(accountData)
-            })
-            .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Success:', data);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-
+        // Toggle the eye/eye-off icon
+        showPassword.src = isPasswordVisible ?
+            '../icons/eye-outline.svg' :
+            '../icons/eye-off-outline.svg';
+    });
 });
-
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-}
-
-function validatePassword(password) {
-    const re = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
-    return re.test(password);
+// Hide the error message when the user starts typing
+loginEmail.addEventListener("input", () => {
+    document.getElementById("error-message").style.display = 'none';
+});
+loginPassword.addEventListener("input", () => {
+    document.getElementById("error-message").style.display = 'none';
+});
+loginPassword.addEventListener("keypress", e => {
+    if(e.key === "Enter") {
+        e.preventDefault();
+        loginButton.click();
     }
+});
+loginButton.addEventListener("click", async e => {
+    e.preventDefault();
+    let email = loginEmail.value;
+    let password = loginPassword.value;
+
+    if(await loginCheck(email, password)) {
+        console.log("Admin login successful")
+        window.location.href = '/admin';
+    } else {
+        loginPassword.value = "";
+        document.getElementById("error-message").style.display = 'block';
+    }
+})
+
+
+async function loginCheck(email, password) {
+    if(email.trim() === '' || password.trim() === '') {
+        console.error("Email or password is null, undefined, or empty");
+        return false;
+    }
+    try {
+        const response = await fetch('/api/login/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email: email, password: password}),
+        });
+
+        if (!response.ok) {
+            console.log("All reservations: response is error; Status code: " + response.status);
+            alert("Er is een fout opgetreden bij het verifiëren van het wachtwoord. Probeer het opnieuw");
+            return false;
+        } else {
+            return await response.json();
+
+        }
+    } catch(error) {
+        console.error("Error during login request:", error);
+        return false;
+    }
+}

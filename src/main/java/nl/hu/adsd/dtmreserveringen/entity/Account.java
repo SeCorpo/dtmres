@@ -9,7 +9,6 @@ import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,13 +21,16 @@ public class Account {
     private int id;
 
     @NotNull
+    @Column(columnDefinition = "TINYINT(1) DEFAULT 0")
+    private int admin;
+
+    @NotNull
     private String email;
+
     @NotNull
     private String password;
 
-    @NotNull
-    @Column(columnDefinition="Decimal(10) default '0'")
-    private int admin;
+
 
 
 //    @JsonBackReference(value = "Account -> Reservations")

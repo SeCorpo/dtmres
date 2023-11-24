@@ -38,6 +38,7 @@ loginButton.addEventListener("click", async e => {
 
     if(await loginCheck(email, password)) {
         console.log("Admin login successful")
+        sessionStorage.setItem("loggedIn", true);
         window.location.href = '/admin';
     } else {
         loginPassword.value = "";

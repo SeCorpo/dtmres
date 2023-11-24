@@ -1,5 +1,10 @@
 import {StorageManager} from "../classes/storageManager.js";
 
+if(sessionStorage.getItem("loggedIn") !== "true") {
+    window.location.href = '/login';
+}
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     await loadReservationTable();
 });

@@ -1,6 +1,8 @@
 package nl.hu.adsd.dtmreserveringen.contoller;
 
+import lombok.SneakyThrows;
 import nl.hu.adsd.dtmreserveringen.services.AccountService;
+import org.bouncycastle.util.encoders.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -25,15 +27,18 @@ public class AdminController {
     public AdminController(AccountService accountService) {
         this.accountService = accountService;
     }
-/*
+
+    @SneakyThrows
     @PostMapping("/encrypt")
-            
-        String originalString = "hello";
+    public ResponseEntity<String>isEncrypted(@RequestBody String originalString){
+        originalString = "hello";
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(
                 originalString.getBytes(StandardCharsets.UTF_8));
         String sha256hex = new String(Hex.encode(hash));
-*/
+        return ResponseEntity.ok(sha256hex);
+    }
+
 
     @PostMapping("/login")
     public ResponseEntity<Boolean> isPasswordCorrect(@RequestBody String password) {

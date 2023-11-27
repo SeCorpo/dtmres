@@ -23,7 +23,6 @@ public class AccountService {
 
         return optionalAccount.map(account -> {
             String correctPassword = account.getPassword();
-            logger.info("Correct password: {}, input password: {}", correctPassword, password);
             return correctPassword.equals(password);
         }).orElse(false);
     }

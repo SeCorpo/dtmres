@@ -1,7 +1,8 @@
 import {StorageManager} from "../classes/storageManager.js";
 
 if(sessionStorage.getItem("loggedIn") !== "true") {
-    window.location.href = '/login';
+        alert("Je hebt geen toegang tot deze pagina");
+        window.location.href = '/login';
 }
 
 

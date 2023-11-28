@@ -31,7 +31,6 @@ public class AdminController {
     @SneakyThrows
     @PostMapping("/encrypt")
     public ResponseEntity<String>isEncrypted(@RequestBody String originalString){
-        originalString = "hello";
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(
                 originalString.getBytes(StandardCharsets.UTF_8));

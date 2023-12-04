@@ -3,7 +3,7 @@ const registerPassword = document.getElementById("login-password");
 const registerRepeatPassword = document.getElementById("repeat-password");
 const registerButton = document.getElementById("register-button");
 
-registrationButton.addEventListener("click", e => {
+registerButton.addEventListener("click", e => {
     e.preventDefault();
     let email = registerEmail.value;
     let password = registerPassword.value;

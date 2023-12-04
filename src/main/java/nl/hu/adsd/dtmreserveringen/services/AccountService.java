@@ -43,4 +43,15 @@ public class AccountService {
         logger.info("Fetching account with email: {}", email);
         return Optional.ofNullable(accountRepository.getAccountByEmail(email));
     }
+
+
+    //REGISTER FUNCTION
+    public void addAccount(int admin, String email, String password) {
+        Account account = new Account();
+        account.setAdmin(admin);
+        account.setEmail(email);
+        account.setPassword(password);
+
+        accountRepository.save(account);
+    }
 }

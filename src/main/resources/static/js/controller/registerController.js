@@ -1,14 +1,16 @@
+import {registerUser} from "../service/registerService.js";
+
 const registerEmail = document.getElementById("login-email");
 const registerPassword = document.getElementById("login-password");
 const registerRepeatPassword = document.getElementById("repeat-password");
 const registerButton = document.getElementById("register-button");
 
-registerButton.addEventListener("click", e => {
+registerButton.addEventListener("click", async e => {
     e.preventDefault();
     let email = registerEmail.value;
     let password = registerPassword.value;
     let confirmPassword = registerRepeatPassword.value;
-    let admin = 1;
+
 
     if (!validateEmail(email)) {
         alert("Voer een geldig e-mailadres in.");
@@ -25,34 +27,19 @@ registerButton.addEventListener("click", e => {
         return;
     }
 
-    let accountData = {
-        email: email,
-        password: password,
-        admin: admin
-    };
+    try {
+        const registerService = await import('../service/registerService.js');
+        const result = await registerService.registerUser(email, password);
 
-    console.log(JSON.stringify(accountData));
-    fetch("/api/account/add", {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(accountData)
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-
+        if(result) {
+            console.log("register successful");
+            window.location.href = '/login';
+        } else {
+            alert("Register not successful, please try again later, or contact the administration")
+        }
+    } catch(error) {
+        alert("An error occurred during login: " + error.message);
+    }
 });
 
 function validateEmail(email) {

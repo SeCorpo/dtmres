@@ -48,6 +48,27 @@
 			<scope>runtime</scope>
 		</dependency>
 
+
+		<!-- Mailer dependencies <3 -->
+		<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-context-support</artifactId>
+    		<version>3.1.1.RELEASE</version>
+		</dependency>
+
+		<dependency>
+    		<groupId>javax.mail</groupId>
+  	 		<artifactId>mail</artifactId>
+    		<version>1.4</version>
+		</dependency>
+
+		<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-context-support</artifactId>
+    		<version>4.0.5.RELEASE</version>
+		</dependency>
+
+
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -2,6 +2,7 @@ package nl.hu.adsd.dtmreserveringen.contoller;
 
 import nl.hu.adsd.dtmreserveringen.dto.ReservationDTO;
 import nl.hu.adsd.dtmreserveringen.entity.Reservation;
+import nl.hu.adsd.dtmreserveringen.services.MailService;
 import nl.hu.adsd.dtmreserveringen.services.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,20 @@ public class ReservationController {
             reservationService.deleteReservationById(id);
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/accept/{id}")
+    public ResponseEntity<HttpStatus> acceptReservationById() {
+        try {
+            var mailer = new MailService();      
+            mailer.sendToMail("david.janssen@student.hu.nl","Test Subject","Test Body"); 
+            return ResponseEntity.ok(HttpStatus.OK);
+
+        }
+        catch (Exception e) {
+            System.err.println("Mailer error!");
             return ResponseEntity.notFound().build();
         }
     }

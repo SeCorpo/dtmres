@@ -133,7 +133,9 @@ export class Reservation {
         return returnStatus;
     }
 
-    acceptReservation() {
+    async acceptReservation() {
+        await fetch('/api/reservation/accept/' + this.id)
+        .then(console.log);
         console.log(this);
         console.log("accepted")
     }

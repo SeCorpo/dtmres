@@ -52,6 +52,12 @@ public class ReservationController {
         logger.info(reservationDTO.toString());
         HttpStatus httpStatus;
         try {
+            Iterable<Reservation> reservationIterable = reservationService.getAllReservations();
+            for (Reservation reservation : reservationIterable) {
+                // TODO: double reversation check here
+                System.out.println(reservation.getId());
+            }
+
             httpStatus = reservationService.addReservation(reservationDTO);
         } catch (Exception e) {
             logger.info("something went wrong in addReservation reservation controller\nError: {}", e.toString());

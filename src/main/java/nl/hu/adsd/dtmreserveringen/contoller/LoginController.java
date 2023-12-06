@@ -23,7 +23,10 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<Boolean> login(@RequestBody Map<String, String> requestBody) {
-        if(requestBody == null) {
+        if(requestBody == null ||
+                !requestBody.containsKey("email") ||
+                !requestBody.containsKey("password")) {
+
             logger.error("Request body is null");
             return ResponseEntity.ok(false);
         }

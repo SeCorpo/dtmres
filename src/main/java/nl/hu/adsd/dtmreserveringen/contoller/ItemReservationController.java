@@ -39,6 +39,8 @@ public class ItemReservationController {
 
     @GetMapping("/all")
     public ResponseEntity<List<ItemReservation>> getAllItemReservations() {
+
+        //TODO: by current users account or if admin
         Iterable<ItemReservation> itemReservationIterable = itemReservationService.getAllItemReservations();
 
         List<ItemReservation> itemReservationList  = new ArrayList<>();

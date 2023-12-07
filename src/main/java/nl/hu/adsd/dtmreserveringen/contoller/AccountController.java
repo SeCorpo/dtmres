@@ -1,7 +1,5 @@
 package nl.hu.adsd.dtmreserveringen.contoller;
 
-import nl.hu.adsd.dtmreserveringen.entity.Account;
-import nl.hu.adsd.dtmreserveringen.repository.AccountRepository;
 import nl.hu.adsd.dtmreserveringen.services.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +33,15 @@ public class AccountController {
 
         logger.info("AccountController register attempt using email: {} and password: {}", email, password);
 
+        //check if email is already in use
         if(accountService.doesAccountExist(email)) {
             logger.info("Account with email: {} does already exist", email);
             return ResponseEntity.ok(false);
         }
         accountService.addAccount(admin, email, password);
 
-        ////////////////////Check
 
+        //check if account is made successfully
         if(accountService.doesAccountExist(email)) {
             logger.info("Account registered successfully");
             return ResponseEntity.ok(true);

@@ -28,8 +28,8 @@ registerButton.addEventListener("click", async e => {
     }
 
     try {
-        const registerService = await import('../service/registerService.js');
-        const result = await registerService.registerUser(email, password);
+
+        const result = await registerUser(email, password);
 
         if(result) {
             console.log("register successful");

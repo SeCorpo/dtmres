@@ -1,34 +1,28 @@
 package nl.hu.adsd.dtmreserveringen.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.mail.MailSender;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
-@Service("emailService")
+@Service
 public class MailService {
-    
+
     @Autowired
-    private JavaMailSender mailSender = new JavaMailSenderImpl();
+    private JavaMailSender javaMailSender;
 
+    @Value("${spring.mail.username}")
+    private String emailSender;
 
-    public void sendToMail(String toMail,String subject, String body)
-    {
+    public String sendEmail(String recipient, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setFrom("davidjanssen2001@gmail.com");
-        message.setTo(toMail);
+        message.setFrom(emailSender);
+        message.setTo(recipient);
         message.setSubject(subject);
-        message.setText(body);
-        System.out.println("Sending mail");
-        
-        mailSender.send(message);
-        System.out.println("Mail send!");
-    }
-    public MailService() {
-    }
+        message.setText(text);
 
+        javaMailSender.send(message);
+        return "Email sent successfully to " + recipient;
+    }
 }

@@ -36,8 +36,8 @@ public class DtmReservationsConfig {
 	    mailSender.setHost("smtp.gmail.com");
 	    mailSender.setPort(587);
 
-	    mailSender.setUsername("davidjanssen2001@gmail.com");
-	    mailSender.setPassword("pcyzbxxqphromfin");
+	    mailSender.setUsername("hogeschoolnoreply@gmail.com");
+	    mailSender.setPassword("iiycjemygdiowyzk");
 
 	    Properties props = mailSender.getJavaMailProperties();
 	    props.put("mail.transport.protocol", "smtp");

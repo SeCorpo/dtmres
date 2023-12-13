@@ -6,6 +6,7 @@ import nl.hu.adsd.dtmreserveringen.services.MailService;
 import nl.hu.adsd.dtmreserveringen.services.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,9 @@ public class ReservationController {
     private final Logger logger = LoggerFactory.getLogger(ReservationController.class);
 
     private final ReservationService reservationService;
+    
+    @Autowired
+    private MailService mailService;
 
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
@@ -51,14 +55,12 @@ public class ReservationController {
     @GetMapping("/accept/{id}")
     public ResponseEntity<HttpStatus> acceptReservationById() {
         try {
-            var mailer = new MailService();      
-            mailer.sendToMail("david.janssen@student.hu.nl","Test Subject","Test Body"); 
+            mailService.sendEmail("olav.kuhnen@student.hu.nl", "Testier", "Ola senhor");
             return ResponseEntity.ok(HttpStatus.OK);
-
-        }
-        catch (Exception e) {
-            System.err.println("Mailer error!");
-            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("\n".repeat(15));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

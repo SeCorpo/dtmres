@@ -1,3 +1,5 @@
+import {loginCheck} from "../service/loginService.js";
+
 const loginEmail = document.getElementById("login-email");
 const loginPassword = document.getElementById("login-password");
 const errorMessage = document.getElementById("error-message");
@@ -40,13 +42,11 @@ async function handleLoginButton(event) {
     }
 
     try {
-        const loginService = await import('../service/loginService.js');
-        const result = await loginService.loginCheck(email, password);
+        const result = await loginCheck(email, password);
 
         if(result) {
             console.log("login successful");
-            // set key in main
-            window.location.href = '/';
+
         } else {
             loginPassword.value = "";
             document.getElementById("error-message").style.display = 'block';

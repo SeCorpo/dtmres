@@ -43,8 +43,9 @@ public class ReservationController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteReservationById(@PathVariable Long id) {
+    public ResponseEntity<HttpStatus> deleteReservationById(@PathVariable Long id,@RequestBody String email) {
         try {
+            mailService.sendEmail(email, "Reservation denied", "Reservation denied");
             reservationService.deleteReservationById(id);
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (Exception e) {
@@ -53,9 +54,9 @@ public class ReservationController {
     }
 
     @GetMapping("/accept/{id}")
-    public ResponseEntity<HttpStatus> acceptReservationById() {
+    public ResponseEntity<HttpStatus> acceptReservationById(@RequestBody String email) {
         try {
-            mailService.sendEmail("olav.kuhnen@student.hu.nl", "Testier", "Ola senhor");
+            mailService.sendEmail(email, "Reservation accepted", "Reservation accepted");
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e);

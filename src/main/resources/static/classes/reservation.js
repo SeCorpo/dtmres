@@ -124,6 +124,9 @@ export class Reservation {
         let returnStatus = "";
         await fetch('/api/reservation/delete/' + this.id, {
             method: 'DELETE',
+            body: JSON.stringify({
+                email: "david.janssen@student.hu.nl"
+            }),
         })
             .then(res => res.text()) // or res.json()
             .then(res => {
@@ -134,7 +137,11 @@ export class Reservation {
     }
 
     async acceptReservation() {
-        await fetch('/api/reservation/accept/' + this.id)
+        await fetch('/api/reservation/accept/' + this.id, {
+            // body: JSON.stringify({
+            //     email: "david.janssen@student.hu.nl"
+            // })
+        }) 
         .then(console.log);
         console.log(this);
         console.log("accepted")

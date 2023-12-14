@@ -1,5 +1,7 @@
 package nl.hu.adsd.dtmreserveringen;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 import org.springframework.context.annotation.Bean;
@@ -36,8 +38,16 @@ public class DtmReservationsConfig {
 	    mailSender.setHost("smtp.gmail.com");
 	    mailSender.setPort(587);
 
-	    mailSender.setUsername("hogeschoolnoreply@gmail.com");
-	    mailSender.setPassword("iiycjemygdiowyzk");
+
+		Properties envProps = new Properties();
+		try{
+			envProps.load((new FileInputStream(".env")));
+	
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+
+	    mailSender.setPassword("MAILSENDER_PASSWORD");
 
 	    Properties props = mailSender.getJavaMailProperties();
 	    props.put("mail.transport.protocol", "smtp");

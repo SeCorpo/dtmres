@@ -3,11 +3,13 @@ package nl.hu.adsd.dtmreserveringen.contoller;
 import nl.hu.adsd.dtmreserveringen.services.AccountDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -56,6 +58,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Boolean> login(@RequestBody Map<String, String> loginRequest) {
+        SecurityContextHolder.clearContext();
         logger.info("AuthController reached");
 
         if(loginRequest == null) {
@@ -72,7 +75,6 @@ public class AuthController {
 
             Authentication authenticationRes =
                     this.authenticationManager.authenticate(authenticationReq);
-
 
             return ResponseEntity.ok(true);
         } catch (AuthenticationException e) {

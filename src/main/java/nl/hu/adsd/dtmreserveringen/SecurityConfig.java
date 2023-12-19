@@ -1,13 +1,13 @@
 package nl.hu.adsd.dtmreserveringen;
 
-import nl.hu.adsd.dtmreserveringen.services.AccountDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+
+import nl.hu.adsd.dtmreserveringen.services.AccountDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -24,31 +26,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
+            .securityMatcher("/api/**")
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/","/login", "/register").permitAll()
-                        .anyRequest().permitAll()
+                // the api endpoints and their authorization
+                        .requestMatchers("/api/auth/register").permitAll()
+                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/product/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/product/**", "/api/item-reservation/**",
+                         "/api/reservation/**", "api/item/**").hasRole("ADMIN")
                 );
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable);
-
-        httpSecurity
-                .formLogin(form -> form
-                        .loginPage("/login").permitAll()
-//                        .loginProcessingUrl("/api/auth/login")
-                );
-
-
-//        httpSecurity
-//                .sessionManagement(session -> session
-//                        .invalidSessionUrl("/login")
-//                        .maximumSessions(2)
-//                );
-//
-//        httpSecurity
-//                .logout((logout) -> logout
-//                        .deleteCookies("JSESSIONID")
-//                );
-
+        httpSecurity.httpBasic(Customizer.withDefaults());
 
         return httpSecurity.build();
     }
@@ -64,7 +53,6 @@ public class SecurityConfig {
 
         return new ProviderManager(daoAuthenticationProvider);
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {

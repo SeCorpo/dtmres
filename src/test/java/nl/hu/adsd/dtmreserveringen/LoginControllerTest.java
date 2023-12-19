@@ -1,7 +1,5 @@
 package nl.hu.adsd.dtmreserveringen;
 
-import nl.hu.adsd.dtmreserveringen.services.AccountService;
-import nl.hu.adsd.dtmreserveringen.contoller.LoginController;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;

@@ -5,6 +5,8 @@ const registerPassword = document.getElementById("login-password");
 const registerRepeatPassword = document.getElementById("repeat-password");
 const registerButton = document.getElementById("register-button");
 
+//TODO: add show-password button (from login-page)
+
 registerButton.addEventListener("click", async e => {
     e.preventDefault();
     let email = registerEmail.value;
@@ -33,12 +35,13 @@ registerButton.addEventListener("click", async e => {
 
         if(result) {
             console.log("register successful");
-            window.location.href = '/login';
+            //window.location.href = '/login';
+
         } else {
             alert("Register not successful, please try again later, or contact the administration")
         }
     } catch(error) {
-        alert("An error occurred during login: " + error.message);
+        alert("An error occurred during registering: " + error.message);
     }
 });
 

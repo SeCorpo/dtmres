@@ -1,3 +1,5 @@
+import {loginCheck} from "../service/loginService.js";
+
 const loginEmail = document.getElementById("login-email");
 const loginPassword = document.getElementById("login-password");
 const errorMessage = document.getElementById("error-message");
@@ -12,6 +14,10 @@ loginButton.addEventListener('click', async event => handleLoginButton(event))
 
 function hideErrorMessage() {
     errorMessage.style.display = 'none';
+}
+function showErrorMessage(message) {
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
 }
 
 function handleTogglePassword() {
@@ -35,24 +41,24 @@ async function handleLoginButton(event) {
     let password = loginPassword.value;
 
     if(email.trim() === '' || password.trim() === '') {
-        alert("Email or password is null, undefined, or empty");
-        return false;
+        showErrorMessage("Email or password is null, undefined, or empty");
+        return;
     }
 
     try {
-        const loginService = await import('../service/loginService.js');
-        const result = await loginService.loginCheck(email, password);
+
+        const result = await loginCheck(email, password);
 
         if(result) {
             console.log("login successful");
-            // set key in main
-            window.location.href = '/';
+
         } else {
             loginPassword.value = "";
-            document.getElementById("error-message").style.display = 'block';
+            showErrorMessage("Invalid email or password")
         }
     } catch(error) {
-        alert("An error occurred during login: " + error.message);
+        console.error("An error occurred during login: " + error.message);
+        showErrorMessage("loginController:An error occurred during login. Please try again.");
     }
 }
 

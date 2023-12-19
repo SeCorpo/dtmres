@@ -2,7 +2,7 @@ export async function loginCheck(email, password) {
 
     console.log("loginService reached")
     try {
-        const response = await fetch('/api/login/login', {
+        const response = await fetch('/api/auth/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -10,17 +10,28 @@ export async function loginCheck(email, password) {
             },
             body: JSON.stringify({email: email, password: password}),
         });
-
         if (!response.ok) {
             console.log("Response not OK " + response.status);
             alert("Er is een fout opgetreden bij het verifiëren van het wachtwoord. Probeer het opnieuw");
-            return false;
-        } else {
-            return await response.json();
-
+            return null;
         }
+
+        return await response.json();
+
     } catch(error) {
         console.error("Error during login request:", error);
-        return false;
+
+        if (error instanceof SyntaxError) {
+            // Response is not JSON
+            alert("Invalid response format from the server");
+        } else if (error instanceof TypeError) {
+            // Handle network errors
+            alert("Network error. Please check your internet connection.");
+        } else {
+            // Handle other errors
+            alert("An error occurred. Please try again.");
+        }
+
+        throw error;
     }
 }

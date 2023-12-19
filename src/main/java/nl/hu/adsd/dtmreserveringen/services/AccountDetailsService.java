@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AccountDetailsService implements UserDetailsService {
 
@@ -31,7 +33,8 @@ public class AccountDetailsService implements UserDetailsService {
     }
 
     public boolean doesAccountExist(String email) {
-        return accountRepository.getAccountByEmail(email) != null;
+        Optional<Account> optionalAccount = Optional.ofNullable(accountRepository.getAccountByEmail(email));
+        return optionalAccount.isPresent();
     }
 
     public void addAccount(String email, String password) {

@@ -42,6 +42,7 @@ public class AuthController {
             accountDetailsService.addAccount(registerRequest.get("email"), registerRequest.get("password"));
         } catch(Exception e) {
             logger.error("Unable to register account: ", e);
+            return ResponseEntity.ok(false);
         }
 
         //check if account is made successfully

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/login-register.css">
-    <script type="module" src="../js/login.js"></script>
+    <script type="module" src="../js/controller/loginController.js"></script>
 
 </head>
 
@@ -53,14 +53,15 @@
                 </div>
                 <div class="input-box">
                     <img src="../icons/person-outline.svg" alt="Admin Icon"></a>
-                    <input type="email" placeholder="Example@student.hu.nl" required id="login-email">
+                    <input type="email" name="username" placeholder="Example@student.hu.nl" required id="login-email">
                 </div>
                 <div class="input-box">
                     <img src="../icons/eye-outline.svg" alt="Show Password" id="show-password"></a>
-                    <input type="password" placeholder="Wachtwoord" required id="login-password">
+                    <input type="password" name="password" placeholder="Wachtwoord" required id="login-password">
                 </div>
                 <button type="submit" class="login" id="login-button">Inloggen</button>
                 <a href="/register">
+
                     <button type="button" class="register" id="register-button">Maak nieuw account aan</button>
                 </a>
                 <div class="remember-forgot">

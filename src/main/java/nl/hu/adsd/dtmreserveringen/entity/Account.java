@@ -1,13 +1,16 @@
 package nl.hu.adsd.dtmreserveringen.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Getter
@@ -20,22 +23,29 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
-    @Column(columnDefinition = "TINYINT(1) DEFAULT 0")
+    @Column(nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
     private int admin;
 
-    @NotNull
+    @NotBlank
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @NotNull
+    @NotBlank
+    @Column(nullable = false)
     private String password;
 
 
+    //An Admin could also have User privileges, if needed add to authorities (applies to all)
+    public Collection<? extends GrantedAuthority> getAuthority() {
+        Set<GrantedAuthority> authorities = new HashSet<>();
 
+        if (admin == 1) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        } else {
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        return authorities;
+    }
 
-//    @JsonBackReference(value = "Account -> Reservations")
-//    @Fetch(FetchMode.JOIN)
-//    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    private List<Reservation> reservations;
 }
 

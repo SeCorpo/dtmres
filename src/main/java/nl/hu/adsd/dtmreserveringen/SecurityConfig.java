@@ -31,13 +31,18 @@ public class SecurityConfig {
                 // the api endpoints and their authorization
                         .requestMatchers("/api/auth/register").permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/reservation/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/product/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/product/**", "/api/item-reservation/**",
                          "/api/reservation/**", "api/item/**").hasRole("ADMIN")
+                         .requestMatchers(HttpMethod.GET, "/api/reservation/all").hasRole("ADMIN")
                 );
+
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable);
-        httpSecurity.httpBasic(Customizer.withDefaults());
+
+        httpSecurity.formLogin((form) -> form
+        .loginPage("/login").permitAll());
 
         return httpSecurity.build();
     }

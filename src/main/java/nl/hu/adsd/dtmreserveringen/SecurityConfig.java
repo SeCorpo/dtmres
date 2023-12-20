@@ -29,10 +29,9 @@ public class SecurityConfig {
             .securityMatcher("/api/**")
                 .authorizeHttpRequests((auth) -> auth
                 // the api endpoints and their authorization
-                        .requestMatchers("/api/auth/register").permitAll()
-                        .requestMatchers("/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/reservation/**").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/product/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/product/**", "/api/item/**").permitAll()
+                         .requestMatchers(HttpMethod.POST, "/api/reservation/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/product/**", "/api/item-reservation/**",
                          "/api/reservation/**", "api/item/**").hasRole("ADMIN")
                          .requestMatchers(HttpMethod.GET, "/api/reservation/all").hasRole("ADMIN")

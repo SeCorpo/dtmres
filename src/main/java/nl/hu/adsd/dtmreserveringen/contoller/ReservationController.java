@@ -7,6 +7,7 @@ import nl.hu.adsd.dtmreserveringen.services.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties.Http;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +44,8 @@ public class ReservationController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteReservationById(@PathVariable Long id,@RequestBody String email) {
+    public ResponseEntity<HttpStatus> deleteReservationById(@PathVariable Long id) {
         try {
-            mailService.sendEmail(email, "Reservation denied", "Reservation denied");
             reservationService.deleteReservationById(id);
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (Exception e) {
@@ -53,10 +53,11 @@ public class ReservationController {
         }
     }
 
-    @GetMapping("/accept/{id}")
-    public ResponseEntity<HttpStatus> acceptReservationById(@RequestBody String email) {
+    //TODO: move reservation to acceptedReservation table when this table is realised
+    @GetMapping("/accept")
+    public ResponseEntity<HttpStatus> acceptReservationById() {
         try {
-            mailService.sendEmail(email, "Reservation accepted", "Reservation accepted");
+            System.out.println("Accepted reservation");
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e);
@@ -64,6 +65,8 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
 
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> addReservation(@RequestBody ReservationDTO reservationDTO) {
@@ -76,6 +79,17 @@ public class ReservationController {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(httpStatus);
+    }
+
+    @GetMapping("/sendEmail/{email}/{subject}/{text}")
+    public ResponseEntity<HttpStatus> sendEmail(@PathVariable String email, @PathVariable String subject, @PathVariable String text) {
+        try {
+            mailService.sendEmail(email, subject, text);
+            return ResponseEntity.ok(HttpStatus.OK);
+        } catch (Exception e) {
+   
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }

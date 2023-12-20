@@ -122,12 +122,7 @@ export class Reservation {
 
     async deleteReservation() {
         let returnStatus = "";
-        await fetch('/api/reservation/delete/' + this.id, {
-            method: 'DELETE',
-            body: JSON.stringify({
-                email: "david.janssen@student.hu.nl"
-            }),
-        })
+        await fetch('/api/reservation/delete/'+ this.id, {method: 'DELETE',})
             .then(res => res.text()) // or res.json()
             .then(res => {
                 console.log("Response status of reservation deletion: " + res)
@@ -137,18 +132,19 @@ export class Reservation {
     }
 
     async acceptReservation() {
-        await fetch('/api/reservation/accept/' + this.id, {
-            // body: JSON.stringify({
-            //     email: "david.janssen@student.hu.nl"
-            // })
-        }) 
-        .then(console.log);
+        await fetch('/api/reservation/sendEmail/' + this.email + '/Reservation accepted' + '/Your reservation has been accepted!')
+        .then (await fetch("/api/reservation/accept"))
+        .then (await fetch("api/reservation/delete/" + this.id, {method: 'DELETE'}))
+        .then (document.getElementById("table-row-reservations" + this.id)
+        .style.display = "none");
         console.log(this);
         console.log("accepted")
     }
 
     async rejectReservation() {
+        await fetch('/api/reservation/sendEmail/' + this.email + '/Reservation denied' + '/Your reservation has been denied!');
         let returnStatus = await this.deleteReservation();
+        
 
         if (returnStatus === '"OK"') {
             console.log("return status OK, now making corresponding row disappear");

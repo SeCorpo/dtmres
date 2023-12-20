@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.hibernate.cfg.Environment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.SimpleMailMessage;
@@ -11,8 +14,18 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
+
 @Configuration
 public class DtmReservationsConfig {
+
+	
+    @Value("${spring.mail.username}")
+    private String emailUsername;
+	
+	
+    @Value("${spring.mail.password}")
+    private String emailPassword;
+
     /**
      * This provides a configuration for the logger. It determines what needs to be logged and how.
      *
@@ -28,7 +41,7 @@ public class DtmReservationsConfig {
         return loggingFilter;
     }
 
-    
+
 	@Bean
 	public JavaMailSender getJavaMailSender()
 	{
@@ -37,7 +50,7 @@ public class DtmReservationsConfig {
 
 	    mailSender.setHost("smtp.gmail.com");
 	    mailSender.setPort(587);
-
+		
 
 		Properties envProps = new Properties();
 		try{
@@ -47,8 +60,10 @@ public class DtmReservationsConfig {
 			e.printStackTrace();
 		}
 
-	    mailSender.setPassword("MAILSENDER_PASSWORD");
 
+
+		mailSender.setUsername(emailUsername);
+	    mailSender.setPassword(emailPassword);
 	    Properties props = mailSender.getJavaMailProperties();
 	    props.put("mail.transport.protocol", "smtp");
 	    props.put("mail.smtp.auth", "true");

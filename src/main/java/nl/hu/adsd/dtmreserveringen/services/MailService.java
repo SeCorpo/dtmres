@@ -15,12 +15,14 @@ public class MailService {
     @Value("${spring.mail.username}")
     private String emailSender;
 
+
     public String sendEmail(String recipient, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(emailSender);
         message.setTo(recipient);
         message.setSubject(subject);
         message.setText(text);
+
 
         javaMailSender.send(message);
         return "Email sent successfully to " + recipient;

@@ -16,8 +16,9 @@ export async function loginCheck(email, password) {
             return null;
         }
 
-        return await response.json();
+        const json = await response.json(); // Read the response body once
 
+        return json;
     } catch(error) {
         console.error("Error during login request:", error);
 

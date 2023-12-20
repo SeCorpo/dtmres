@@ -22,36 +22,30 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        httpSecurity
-                .authorizeHttpRequests((auth) -> auth
+        http
+//                .formLogin(form -> form
+//                                .loginPage("/login").permitAll()
+//                        .loginProcessingUrl("/api/auth/login") sends html as response (don't use)
+//                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                )
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/","/login", "/register").permitAll()
+                        .requestMatchers("/admin").hasAuthority("ROLE_USER")
                         .anyRequest().permitAll()
-                );
-        httpSecurity
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll()
+                        .deleteCookies("JSESSIONID")
+                )
                 .csrf(AbstractHttpConfigurer::disable);
 
-        httpSecurity
-                .formLogin(form -> form
-                        .loginPage("/login").permitAll()
-//                        .loginProcessingUrl("/api/auth/login")
-                );
-
-
-//        httpSecurity
-//                .sessionManagement(session -> session
-//                        .invalidSessionUrl("/login")
-//                        .maximumSessions(2)
-//                );
-//
-//        httpSecurity
-//                .logout((logout) -> logout
-//                        .deleteCookies("JSESSIONID")
-//                );
-
-
-        return httpSecurity.build();
+        return http.build();
     }
 
     //https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/dao-authentication-provider.html
@@ -66,24 +60,10 @@ public class SecurityConfig {
         return new ProviderManager(daoAuthenticationProvider);
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
-    //listener used to prevent a user from having multiple sessions (auto invalidation), see filter-chain sessionManagement
-    //https://docs.spring.io/spring-security/reference/servlet/authentication/session-management.html
-    @Bean
-    public HttpSessionEventPublisher httpSessionEventPublisher() {
-        return new HttpSessionEventPublisher();
-    }
-
-
-    //TODO: https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html
-    //TODO: https://docs.spring.io/spring-security/reference/servlet/authentication/architecture.html#servlet-authentication-providermanager
-    //TODO: https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/index.html
-    //TODO: https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html
 
 }

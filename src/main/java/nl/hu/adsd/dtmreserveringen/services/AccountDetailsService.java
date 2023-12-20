@@ -29,7 +29,7 @@ public class AccountDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(email);
         }
 
-        return new User(account.getEmail(), account.getPassword(), account.getAuthority());
+        return new User(account.getEmail(), account.getPassword(), account.getAuthorities());
     }
 
     public boolean doesAccountExist(String email) {

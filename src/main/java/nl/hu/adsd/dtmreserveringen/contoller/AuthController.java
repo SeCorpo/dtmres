@@ -1,5 +1,7 @@
 package nl.hu.adsd.dtmreserveringen.contoller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import nl.hu.adsd.dtmreserveringen.services.AccountDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -56,13 +59,16 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody Map<String, String> loginRequest) {
+    public ResponseEntity<Boolean> login(@RequestBody Map<String, String> loginRequest, HttpServletRequest request) {
         logger.info("AuthController reached");
 
         if(loginRequest == null) {
             logger.error("Request body is null");
             return ResponseEntity.ok(false);
         }
+
+        logger.info("LoginRequest: " + loginRequest.toString());
+        logger.info("HttpServletRequest request: " + request.toString());
 
         try {
             Authentication authenticationReq =
@@ -74,6 +80,11 @@ public class AuthController {
             Authentication authenticationRes =
                     this.authenticationManager.authenticate(authenticationReq);
 
+            logger.info(authenticationReq.toString());
+            logger.info(authenticationRes.toString());
+
+            SecurityContextHolder.getContext().setAuthentication(authenticationRes);
+            HttpSession session = request.getSession(true);
 
             return ResponseEntity.ok(true);
         } catch (AuthenticationException e) {

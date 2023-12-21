@@ -73,13 +73,13 @@ public class DtmReservationsConfig {
 	    return mailSender;
 	}
 
-	@Bean
-	public SimpleMailMessage emailTemplate()
-	{
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo("somebody@gmail.com");
-		message.setFrom("admin@gmail.com");
-	    message.setText("FATAL - Application crash. Save your job !!");
-	    return message;
-	}
+	// @Bean
+	// public SimpleMailMessage emailTemplate()
+	// {
+	// 	SimpleMailMessage message = new SimpleMailMessage();
+	// 	message.setTo("somebody@gmail.com");
+	// 	message.setFrom("admin@gmail.com");
+	//     message.setText("FATAL - Application crash. Save your job !!");
+	//     return message;
+	// }
 }

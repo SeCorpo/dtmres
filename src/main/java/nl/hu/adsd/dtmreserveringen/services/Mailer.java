@@ -1,5 +1,5 @@
-package nl.hu.adsd.dtmreserveringen.services;
+// package nl.hu.adsd.dtmreserveringen.services;
 
-public class Mailer {
+// public class Mailer {
     
-}
+// }

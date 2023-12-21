@@ -16,7 +16,7 @@ public class MailService {
     private String emailSender;
 
 
-    public String sendEmail(String recipient, String subject, String text) {
+    public void sendEmail(String recipient, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(emailSender);
         message.setTo(recipient);
@@ -25,6 +25,6 @@ public class MailService {
 
 
         javaMailSender.send(message);
-        return "Email sent successfully to " + recipient;
+        System.out.println("Email sent successfully to " + recipient);
     }
 }

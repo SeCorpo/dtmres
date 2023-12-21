@@ -57,7 +57,7 @@ public class ReservationController {
     @GetMapping("/accept")
     public ResponseEntity<HttpStatus> acceptReservationById() {
         try {
-            System.out.println("Accepted reservation");
+            logger.info("Accepted reservation");
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e);

@@ -132,10 +132,8 @@ export class Reservation {
     }
 
     async acceptReservation() {
-        await fetch('/api/reservation/sendEmail/' + this.email + '/Reservation accepted' + '/Your reservation has been accepted!')
-        .then (await fetch("/api/reservation/accept"))
-        .then (await fetch("api/reservation/delete/" + this.id, {method: 'DELETE'}))
-        .then (document.getElementById("table-row-reservations" + this.id)
+        await fetch("/api/reservation/accept/" + this.email +"/" + this.id)
+       .then (document.getElementById("table-row-reservations" + this.id)
         .style.display = "none");
         console.log(this);
         console.log("accepted")

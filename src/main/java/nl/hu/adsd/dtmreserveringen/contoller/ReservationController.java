@@ -54,10 +54,12 @@ public class ReservationController {
     }
 
     //TODO: move reservation to acceptedReservation table when this table is realised
-    @GetMapping("/accept")
-    public ResponseEntity<HttpStatus> acceptReservationById() {
+    @GetMapping("/accept/{email}/{id}")
+    public ResponseEntity<HttpStatus> acceptReservationById(@PathVariable String email, @PathVariable long id) {
         try {
             logger.info("Accepted reservation");
+            sendEmail(email, "Reservation accepted", "Your reservation has been accepted!");
+            deleteReservationById(id);
             return ResponseEntity.ok(HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e);
@@ -81,7 +83,7 @@ public class ReservationController {
         return new ResponseEntity<>(httpStatus);
     }
 
-    @GetMapping("/sendEmail/{email}/{subject}/{text}")
+    @PostMapping("/sendEmail/{email}/{subject}/{text}")
     public ResponseEntity<HttpStatus> sendEmail(@PathVariable String email, @PathVariable String subject, @PathVariable String text) {
         try {
             mailService.sendEmail(email, subject, text);

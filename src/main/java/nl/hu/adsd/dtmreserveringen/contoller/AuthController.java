@@ -58,7 +58,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Boolean> login(@RequestBody Map<String, String> loginRequest) {
-        SecurityContextHolder.clearContext();
         logger.info("AuthController reached");
 
         if(loginRequest == null) {

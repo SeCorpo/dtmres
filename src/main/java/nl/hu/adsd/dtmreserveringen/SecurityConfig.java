@@ -34,15 +34,17 @@ public class SecurityConfig {
                          .requestMatchers(HttpMethod.POST, "/api/reservation/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/product/**", "/api/item-reservation/**",
                          "/api/reservation/**", "api/item/**").hasRole("ADMIN")
+                         // api/reservation/all is used by both the admin page and the reservation function
                          .requestMatchers(HttpMethod.GET, "/api/reservation/all").hasRole("ADMIN")
+                         .requestMatchers(HttpMethod.GET, "/api/item/**", "/api/item-reservation/**").permitAll()
                 );
 
         httpSecurity
-                .csrf(AbstractHttpConfigurer::disable);
+                .csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(Customizer.withDefaults());
 
         httpSecurity.formLogin((form) -> form
         .loginPage("/login").permitAll());
-
         return httpSecurity.build();
     }
 

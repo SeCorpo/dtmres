@@ -57,6 +57,8 @@ async function createReservation() {
 
 
 async function placeReservation() {
+    // if there is a problem with the reservation this wil remain disabled.
+    // we should remove this 
     reservationButton.disabled = true;
     if (await validReservation()) {
         const reservationTemplate = await createReservation();

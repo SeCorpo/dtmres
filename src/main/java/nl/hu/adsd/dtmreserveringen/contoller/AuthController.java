@@ -86,7 +86,7 @@ public class AuthController {
             logger.info(authenticationRes.toString());
 
 //            SecurityContextHolder.getContext().setAuthentication(authenticationRes);
-////            HttpSession session = request.getSession(true);
+//            HttpSession session = request.getSession(true);
 
             return ResponseEntity.ok(true);
         } catch (AuthenticationException e) {

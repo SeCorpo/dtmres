@@ -25,24 +25,24 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .formLogin(form -> form
-                        .loginPage("/login").permitAll()
-//                        .loginProcessingUrl("/api/auth/login") //sends html as response (don't use)
-                )
+//                .formLogin(form -> form
+//                        .loginPage("/login").permitAll()
+////                        .loginProcessingUrl("/api/auth/login") //sends html as response (don't use)
+//                )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/","/login", "/register").permitAll()
-                        .requestMatchers("/admin").hasAuthority("ROLE_USER")
+                        .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
                         .anyRequest().permitAll()
                 )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
-                        .permitAll()
-                        .deleteCookies("JSESSIONID")
-                )
+//                .logout(logout -> logout
+//                        .logoutUrl("/logout")
+//                        .logoutSuccessUrl("/")
+//                        .permitAll()
+//                        .deleteCookies("JSESSIONID")
+//                )
                 .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();

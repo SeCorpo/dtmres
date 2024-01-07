@@ -8,7 +8,7 @@ export async function registerUser(email, password){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email: email, password: password}),
+            body: JSON.stringify({username: email, password: password}),
         });
 
         if (!response.ok) {

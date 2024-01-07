@@ -25,10 +25,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-//                .formLogin(form -> form
-//                                .loginPage("/login").permitAll()
-//                        .loginProcessingUrl("/api/auth/login") sends html as response (don't use)
-//                )
+                .formLogin(form -> form
+                        .loginPage("/login").permitAll()
+//                        .loginProcessingUrl("/api/auth/login") //sends html as response (don't use)
+                )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )

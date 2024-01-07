@@ -8,7 +8,7 @@ export async function loginCheck(email, password) {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email: email, password: password}),
+            body: JSON.stringify({username: email, password: password}),
         });
         if (!response.ok) {
             console.log("Response not OK " + response.status);

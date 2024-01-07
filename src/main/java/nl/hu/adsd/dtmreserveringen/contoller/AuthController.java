@@ -72,27 +72,27 @@ public class AuthController {
         logger.info("AccountDTO: " + accountDTO.toString());
 //        logger.info("HttpServletRequest request: " + request.toString());
 
-//        try {
-//            Authentication authenticationReq =
-//                    UsernamePasswordAuthenticationToken.unauthenticated(
-//                            accountDTO.getUsername(),
-//                            accountDTO.getPassword()
-//                    );
-//
-//            Authentication authenticationRes =
-//                    this.authenticationManager.authenticate(authenticationReq);
-//
-//            logger.info(authenticationReq.toString());
-//            logger.info(authenticationRes.toString());
-//
+        try {
+            Authentication authenticationReq =
+                    UsernamePasswordAuthenticationToken.unauthenticated(
+                            accountDTO.username(),
+                            accountDTO.password()
+                    );
+
+            Authentication authenticationRes =
+                    this.authenticationManager.authenticate(authenticationReq);
+
+            logger.info(authenticationReq.toString());
+            logger.info(authenticationRes.toString());
+
 //            SecurityContextHolder.getContext().setAuthentication(authenticationRes);
 ////            HttpSession session = request.getSession(true);
 
             return ResponseEntity.ok(true);
-//        } catch (AuthenticationException e) {
-//            logger.error("Authentication failed: " + e.getMessage());
-//            return ResponseEntity.ok(false);
-//        }
+        } catch (AuthenticationException e) {
+            logger.error("Authentication failed: " + e.getMessage());
+            return ResponseEntity.ok(false);
+        }
     }
 
 }

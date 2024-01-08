@@ -30,16 +30,13 @@ registerButton.addEventListener("click", async e => {
     }
 
     try {
-
-        const result = await registerUser(email, password);
-
-        if(result) {
-            console.log("register successful");
-            //window.location.href = '/login';
-
-        } else {
-            alert("Register not successful, please try again later, or contact the administration")
+        const response = await registerUser(email, password);
+        if(response.ok) {
+            alert("Your account with email: " + email + " is created successfully, please log in")
+            window.location.replace("/login");
         }
+        alert(response.status + ": " + await response.text())
+
     } catch(error) {
         alert("An error occurred during registering: " + error.message);
     }

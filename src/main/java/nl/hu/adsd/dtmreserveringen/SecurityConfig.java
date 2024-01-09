@@ -3,8 +3,6 @@ package nl.hu.adsd.dtmreserveringen;
 import nl.hu.adsd.dtmreserveringen.services.AccountDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -60,18 +58,18 @@ public class SecurityConfig {
     }
 
     //https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/dao-authentication-provider.html
-//    @Bean
-//    public AuthenticationManager authenticationManager(AccountDetailsService accountDetailsService,
-//                                                       PasswordEncoder passwordEncoder) {
-//
-//
-//        System.out.println("authenticationManager IS IT USED??????! because it works without");
-//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setUserDetailsService(accountDetailsService);
-//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-//
-//        return new ProviderManager(daoAuthenticationProvider);
-//    }
+    // IT MAKES NO DIFFERENCE IF AUTHENTICATION MANAGER IS COMMENTED OUT
+    @Bean
+    public AuthenticationManager authenticationManager(AccountDetailsService accountDetailsService,
+                                                       PasswordEncoder passwordEncoder) {
+
+        System.out.println("authenticationManager IS IT USED??????! because it works without");
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(accountDetailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+
+        return new ProviderManager(daoAuthenticationProvider);
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

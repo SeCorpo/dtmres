@@ -1,5 +1,3 @@
-import {loginCheck} from "../service/loginService.js";
-
 const loginEmail = document.getElementById("login-email");
 const loginPassword = document.getElementById("login-password");
 const errorMessage = document.getElementById("error-message");
@@ -10,7 +8,6 @@ loginEmail.addEventListener("input", () => hideErrorMessage());
 loginPassword.addEventListener("input", () => hideErrorMessage());
 loginPassword.addEventListener("keypress", (enter) => handleKeyPress(enter));
 showPassword.addEventListener('click', () => handleTogglePassword())
-// loginButton.addEventListener('click', async event => handleLoginButton(event))
 
 function hideErrorMessage() {
     errorMessage.style.display = 'none';

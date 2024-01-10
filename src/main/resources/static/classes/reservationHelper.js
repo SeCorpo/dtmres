@@ -8,7 +8,7 @@ export class ReservationHelper {
         this.itemAvailabilityMap = null;
     }
 
-
+    // waarom word dit gedaan in Javascript??? 
     isReservationAvailable(cart, reservationDate, reservationPeriod, products, itemReservations) {
         console.log(cart, "cart");
         console.log(reservationDate, "reservation date");

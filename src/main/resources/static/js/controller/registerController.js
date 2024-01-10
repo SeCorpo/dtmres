@@ -32,7 +32,8 @@ registerButton.addEventListener("click", async e => {
     try {
         const response = await registerUser(email, password);
         if(response.ok) {
-            alert("Your account with email: " + email + " is created successfully, please log in")
+            //todo: meldingen met Toastify
+            alert("Het account met email: " + email + " is aangemaakt\n Login alstublief")
             window.location.replace("/login");
         }
         alert(response.status + ": " + await response.text())

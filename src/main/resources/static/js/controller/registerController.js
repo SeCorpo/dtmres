@@ -37,8 +37,8 @@ registerButton.addEventListener("click", async e => {
         }
         alert(response.status + ": " + await response.text())
 
-    } catch(error) {
-        alert("An error occurred during registering: " + error.message);
+    } catch(e) {
+        alert("Unable to reach the register service\n " + e.message);
     }
 });
 

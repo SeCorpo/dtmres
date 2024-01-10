@@ -31,15 +31,15 @@ registerButton.addEventListener("click", async e => {
 
     try {
         const response = await registerUser(email, password);
+
         if(response.ok) {
-            //todo: meldingen met Toastify
             alert("Het account met email: " + email + " is aangemaakt\n Login alstublief")
             window.location.replace("/login");
         }
         alert(response.status + ": " + await response.text())
 
     } catch(e) {
-        alert("Unable to reach the register service\n " + e.message);
+        alert("Het account kan op dit moment niet worden geregistreerd, probeer het later opnieuw of laat het weten aan de organisatie\n\n   Error message: '" + e.message + "'");
     }
 });
 

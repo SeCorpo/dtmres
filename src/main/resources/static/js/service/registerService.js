@@ -11,6 +11,6 @@ export async function registerUser(email, password){
             body: JSON.stringify({username: email, password: password}),
         });
     } catch (e) {
-        alert("Unable to make a post request to the server\n " + e.message)
+        console.log("Unable to make a post request to the server\n " + e.message)
     }
 }

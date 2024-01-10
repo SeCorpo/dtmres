@@ -2,10 +2,7 @@ package nl.hu.adsd.dtmreserveringen;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-<<<<<<< HEAD
 import org.springframework.http.HttpMethod;
-=======
->>>>>>> L4-26-secure_admin_plus_login
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -29,30 +26,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-<<<<<<< HEAD
-        httpSecurity
-            .securityMatcher("/api/**")
-                .authorizeHttpRequests((auth) -> auth
-                // the api endpoints and their authorization
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/product/**", "/api/item/**").permitAll()
-                         .requestMatchers(HttpMethod.POST, "/api/reservation/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/api/product/**", "/api/item-reservation/**",
-                         "/api/reservation/**", "api/item/**").hasRole("ADMIN")
-                         // api/reservation/all is used by both the admin page and the reservation function
-                         .requestMatchers(HttpMethod.GET, "/api/reservation/all").hasRole("ADMIN")
-                         .requestMatchers(HttpMethod.GET, "/api/item/**", "/api/item-reservation/**").permitAll()
-                );
-
-        httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
-                .httpBasic(Customizer.withDefaults());
-
-        httpSecurity.formLogin((form) -> form
-        .loginPage("/login").permitAll());
-<<<<<<< HEAD
-=======
         http
                 .formLogin(form -> form
                         .loginPage("/login").permitAll()
@@ -72,6 +45,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/login", "/register").permitAll()
                         .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/product/add").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
                         .anyRequest().permitAll()
                 )
 
@@ -81,14 +55,10 @@ public class SecurityConfig {
                         .permitAll()
                         .deleteCookies("JSESSIONID")
                 )
->>>>>>> L4-26-secure_admin_plus_login
 
                 .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
-=======
-        return httpSecurity.build();
->>>>>>> 0df58cf0daaf2d649b5b5b199275eab2ff77e4ca
     }
 
     //https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/dao-authentication-provider.html

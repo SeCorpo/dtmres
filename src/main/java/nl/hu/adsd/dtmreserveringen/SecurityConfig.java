@@ -42,11 +42,18 @@ public class SecurityConfig {
 //                        .maxSessionsPreventsLogin(true) //Prevent further login attempts if the maximum sessions limit is reached
                         )
 
+                // the security matcher makes sure only the pattern in it are affected by the requestmatchers
+                .securityMatcher("/api/**", "/admin", "/login", "/logout")        
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/login", "/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/product/**", 
+                        "/api/reservation/**",
+                         "/api/reservation/**", 
+                        "/api/item/**",
+                         "/api/item-reservation/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/reservation/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/reservation/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/api/product/add").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
-                        .anyRequest().permitAll()
                 )
 
                 .logout(logout -> logout

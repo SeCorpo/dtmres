@@ -59,17 +59,17 @@ public class SecurityConfig {
 
     //https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/dao-authentication-provider.html
     // IT MAKES NO DIFFERENCE IF AUTHENTICATION MANAGER IS COMMENTED OUT
-    @Bean
-    public AuthenticationManager authenticationManager(AccountDetailsService accountDetailsService,
-                                                       PasswordEncoder passwordEncoder) {
-
-        System.out.println("authenticationManager IS IT USED??????! because it works without");
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(accountDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-
-        return new ProviderManager(daoAuthenticationProvider);
-    }
+//    @Bean
+//    public AuthenticationManager authenticationManager(AccountDetailsService accountDetailsService,
+//                                                       PasswordEncoder passwordEncoder) {
+//
+//        System.out.println("authenticationManager IS IT USED??????! because it works without");
+//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+//        daoAuthenticationProvider.setUserDetailsService(accountDetailsService);
+//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+//
+//        return new ProviderManager(daoAuthenticationProvider);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -38,7 +38,7 @@ public class FrontEndLoginTest {
         // Submit the form
         submitButton.submit();
 
-        // Wait for 2 seconds after submitting the form
+        // Wait for 1 second after submitting the form
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -81,7 +81,7 @@ public class FrontEndLoginTest {
         // Submit the form
         submitButton.submit();
 
-        // Wait for 2 seconds after submitting the form
+        // Wait for 1 second after submitting the form
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

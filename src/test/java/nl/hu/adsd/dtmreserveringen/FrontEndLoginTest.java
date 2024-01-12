@@ -11,9 +11,13 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-public class LoginTest {
+public class FrontEndLoginTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoginTest.class);
+    ////////////////////////////////////////////////////
+    //Start the application manually
+    ////////////////////////////////////////////////////
+
+    private static final Logger logger = LoggerFactory.getLogger(FrontEndLoginTest.class);
 
     @Test
     public void testSuccessfulLogin() {

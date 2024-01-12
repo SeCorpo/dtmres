@@ -74,7 +74,11 @@ async function placeReservation() {
         });
         if (!response.ok) {
             alert("Er is iets mis gegaan met het plaatsen van de reservering, probeer het nog een keer");
+        }else if(response.redirected) {
+            // changes the location of the user to the url the response was redirected to!
+            window.location = response.url;
         } else {
+            console.log(response.body);
             calendar.selectedStartDate = null;
             calendar.selectedEndDate = null;
             calendar.highlightSelectedDates();

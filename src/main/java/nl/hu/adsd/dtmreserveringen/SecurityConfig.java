@@ -47,7 +47,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/api/product/**", 
                         "/api/reservation/**",
-                         "/api/reservation/**", 
                         "/api/item/**",
                          "/api/item-reservation/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/reservation/**").authenticated()

@@ -1,11 +1,7 @@
 package nl.hu.adsd.dtmreserveringen;
 
-import nl.hu.adsd.dtmreserveringen.services.AccountDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -27,7 +23,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login").permitAll()
                         .defaultSuccessUrl("/").permitAll()
-//                        .failureUrl("/register").permitAll()
+//                        .failureUrl("/register").permitAll() //form login handles failure
                 )
 
                 .sessionManagement(session -> session

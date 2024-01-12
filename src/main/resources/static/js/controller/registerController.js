@@ -30,18 +30,16 @@ registerButton.addEventListener("click", async e => {
     }
 
     try {
+        const response = await registerUser(email, password);
 
-        const result = await registerUser(email, password);
-
-        if(result) {
-            console.log("register successful");
-            //window.location.href = '/login';
-
-        } else {
-            alert("Register not successful, please try again later, or contact the administration")
+        if(response.ok) {
+            alert("Het account met email: " + email + " is aangemaakt\n Login alstublief")
+            window.location.replace("/login");
         }
-    } catch(error) {
-        alert("An error occurred during registering: " + error.message);
+        alert(response.status + ": " + await response.text())
+
+    } catch(e) {
+        alert("Het account kan op dit moment niet worden geregistreerd, probeer het later opnieuw of laat het weten aan de organisatie\n\n   Error message: '" + e.message + "'");
     }
 });
 

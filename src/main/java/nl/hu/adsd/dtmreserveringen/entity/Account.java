@@ -34,9 +34,8 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
-
     //An Admin could also have User privileges, if needed add to authorities (applies to all)
-    public Collection<? extends GrantedAuthority> getAuthority() {
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
 
         if (admin == 1) {

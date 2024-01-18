@@ -19,8 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
-import nl.hu.adsd.dtmreserveringen.services.AccountDetailsService;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -63,7 +61,6 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                 )
 
-                //
                 .exceptionHandling(Exception ->
                 Exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
 

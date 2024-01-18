@@ -1,5 +1,7 @@
 package nl.hu.adsd.dtmreserveringen;
 
+
+import nl.hu.adsd.dtmreserveringen.services.AccountDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

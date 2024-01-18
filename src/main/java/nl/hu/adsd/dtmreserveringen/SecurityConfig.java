@@ -44,14 +44,11 @@ public class SecurityConfig {
                 // the security matcher makes sure only the pattern in it are affected by the requestmatchers
                 .securityMatcher("/api/**", "/admin", "/login", "/logout")        
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET, "/api/product/**", 
-                        "/api/reservation/**",
-                        "/api/item/**",
-                         "/api/item-reservation/**").permitAll()
+                        .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/product/**", "/api/reservation/**","/api/item/**", "/api/item-reservation/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/reservation/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/reservation/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
                 )
 
                 .logout(logout -> logout

@@ -1,14 +1,9 @@
 package nl.hu.adsd.dtmreserveringen;
 
-
-import nl.hu.adsd.dtmreserveringen.services.AccountDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -29,7 +24,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login").permitAll()
                         .defaultSuccessUrl("/").permitAll()
-//                        .failureUrl("/register").permitAll()
+//                        .failureUrl("/register").permitAll() //form login handles failure
                 )
 
                 .sessionManagement(session -> session
@@ -42,7 +37,7 @@ public class SecurityConfig {
                         )
 
                 // the security matcher makes sure only the pattern in it are affected by the requestmatchers
-                .securityMatcher("/api/**", "/admin", "/login", "/logout")        
+                .securityMatcher("/api/**", "/admin", "/login", "/logout")
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/product/**", "/api/reservation/**","/api/item/**", "/api/item-reservation/**").permitAll()
@@ -66,19 +61,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    //https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/dao-authentication-provider.html
-    // IT MAKES NO DIFFERENCE IF AUTHENTICATION MANAGER IS COMMENTED OUT
-    @Bean
-    public AuthenticationManager authenticationManager(AccountDetailsService accountDetailsService,
-                                                       PasswordEncoder passwordEncoder) {
-
-        System.out.println("authenticationManager IS IT USED??????! because it works without");
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(accountDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-
-        return new ProviderManager(daoAuthenticationProvider);
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

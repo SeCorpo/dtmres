@@ -22,7 +22,7 @@ public class ReservationController {
     private final Logger logger = LoggerFactory.getLogger(ReservationController.class);
 
     private final ReservationService reservationService;
-    
+
     @Autowired
     private MailService mailService;
 
@@ -69,7 +69,7 @@ public class ReservationController {
         }
     }
 
-
+        
 
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> addReservation(@RequestBody ReservationDTO reservationDTO) {
@@ -94,5 +94,5 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
+    
 }

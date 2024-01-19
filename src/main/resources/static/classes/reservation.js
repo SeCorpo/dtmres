@@ -142,7 +142,6 @@ export class Reservation {
     async rejectReservation() {
         await fetch('/api/reservation/sendEmail/' + this.email + '/Reservation denied' + '/Your reservation has been denied!');
         let returnStatus = await this.deleteReservation();
-        
 
         if (returnStatus === '"OK"') {
             console.log("return status OK, now making corresponding row disappear");

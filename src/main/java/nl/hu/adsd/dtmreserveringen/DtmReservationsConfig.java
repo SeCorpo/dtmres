@@ -3,7 +3,6 @@ package nl.hu.adsd.dtmreserveringen;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-
 import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,11 +13,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
-
 @Configuration
 public class DtmReservationsConfig {
 
-	
+    
     @Value("${spring.mail.username}")
     private String emailUsername;
 	
@@ -41,17 +39,15 @@ public class DtmReservationsConfig {
         return loggingFilter;
     }
 
-
+    
 	@Bean
 	public JavaMailSender getJavaMailSender()
 	{
 	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         
-
 	    mailSender.setHost("smtp.gmail.com");
 	    mailSender.setPort(587);
 		
-
 		Properties envProps = new Properties();
 		try{
 			envProps.load((new FileInputStream(".env")));
@@ -60,9 +56,6 @@ public class DtmReservationsConfig {
 			e.printStackTrace();
 			System.exit(0);
 		}
-
-
-
 		mailSender.setUsername(emailUsername);
 	    mailSender.setPassword(emailPassword);
 	    Properties props = mailSender.getJavaMailProperties();
@@ -70,10 +63,8 @@ public class DtmReservationsConfig {
 	    props.put("mail.smtp.auth", "true");
 	    props.put("mail.smtp.starttls.enable", "true");
 	    props.put("mail.debug", "true");
-
 	    return mailSender;
 	}
-
 	// @Bean
 	// public SimpleMailMessage emailTemplate()
 	// {

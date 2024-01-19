@@ -59,9 +59,9 @@ export class StorageManager {
     }
 
     static async getAllProducts() {
-        if (sessionStorage.getItem(StorageKeys.PRODUCTS) === null) {
+        //if (sessionStorage.getItem(StorageKeys.PRODUCTS) === null) {
             await this.setProductsInStorage();
-        }
+        //}
         console.log("StorageManger returning products");
         const productsJson = JSON.parse(sessionStorage.getItem(StorageKeys.PRODUCTS));
         return Object.values(productsJson).map(data => {
@@ -73,9 +73,9 @@ export class StorageManager {
 
     //make sure index is of type number
     static async getProduct(index) {
-        if (sessionStorage.getItem(StorageKeys.PRODUCTS) === null) {
+        //if (sessionStorage.getItem(StorageKeys.PRODUCTS) === null) {
             await this.setProductsInStorage();
-        }
+        //}
 
         const productsJson = JSON.parse(sessionStorage.getItem(StorageKeys.PRODUCTS));
         let product = new Product();

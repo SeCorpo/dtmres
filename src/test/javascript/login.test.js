@@ -21,6 +21,7 @@ describe('Login functionality', () => {
     it('should hide error message', () => {
         loginModule.hideErrorMessage();
     });
+
     it('should handle login button click for successful login', async () => {
         // Mock loginCheck function to return true for successful login
         jest.spyOn(loginModule, 'loginCheck').mockImplementation(async () => true);
@@ -36,6 +37,7 @@ describe('Login functionality', () => {
         await loginModule.loginButton.click();
 
     });
+
     it('should hide error message when typing in email input', () => {
         loginModule.loginEmail.value = 'test@example.com';
         loginModule.hideErrorMessage();

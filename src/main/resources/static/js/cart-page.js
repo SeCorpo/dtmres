@@ -71,7 +71,7 @@ async function placeReservation() {
             body: JSON.stringify(reservationTemplate)
         });
         if (!response.ok) {
-            alert("Er is iets mis gegaan met het plaatsen van de reservering, probeer het nog een keer");
+            alert("Er is iets mis gegaan met het plaatsen van de reservering of je bent nog niet ingelogd, probeer het nog een keer of log in");
         } else {
             console.log(response.body);
             calendar.selectedStartDate = null;

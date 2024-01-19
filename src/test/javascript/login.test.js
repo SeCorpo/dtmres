@@ -1,5 +1,7 @@
 // login.test.js
+
 const loginModule = require('../../main/resources/static/js/login');
+
 describe('Login functionality', () => {
     beforeAll(() => {
         document.body.innerHTML = `
@@ -11,12 +13,15 @@ describe('Login functionality', () => {
         `;
         loginModule.initializeDOMElements();
     });
+
     it('should toggle password visibility', () => {
         loginModule.togglePasswordVisibility();
     });
+
     it('should hide error message', () => {
         loginModule.hideErrorMessage();
     });
+
     it('should handle login button click for successful login', async () => {
         // Mock loginCheck function to return true for successful login
         jest.spyOn(loginModule, 'loginCheck').mockImplementation(async () => true);
@@ -30,7 +35,9 @@ describe('Login functionality', () => {
     
         loginModule.handleLoginButtonClick();
         await loginModule.loginButton.click();
+
     });
+
     it('should hide error message when typing in email input', () => {
         loginModule.loginEmail.value = 'test@example.com';
         loginModule.hideErrorMessage();

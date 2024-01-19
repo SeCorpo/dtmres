@@ -16,6 +16,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class FormLoginTest {
 
+    ////////////////////////////////////////////////////
+    //Enter valid credentials
+    //Read comments for further instructions
+    ////////////////////////////////////////////////////
+
     @Autowired
     private MockMvc mockMvc;
 

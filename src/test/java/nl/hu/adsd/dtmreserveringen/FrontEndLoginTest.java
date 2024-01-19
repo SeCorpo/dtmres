@@ -15,6 +15,8 @@ public class FrontEndLoginTest {
 
     ////////////////////////////////////////////////////
     //Start the application manually
+    //Enter valid credentials
+    //Read comments for further instructions
     ////////////////////////////////////////////////////
 
     private static final Logger logger = LoggerFactory.getLogger(FrontEndLoginTest.class);

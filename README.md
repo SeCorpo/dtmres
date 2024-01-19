@@ -1,7 +1,7 @@
 # DTM-Reserveringen
 De git repository voor het DTM Reserveringen school project.
 
-## Instalatie
+## Installatie
 - Deze applicatie heeft Node Package Manager (NPM) nodig en is hier te downloaden: [Node.js download page](https://nodejs.org/en/download)
 
 ### Download
@@ -16,10 +16,14 @@ De git repository voor het DTM Reserveringen school project.
 - Download maven sources, documentation is optioneel.
 ![download](https://github.com/DragonStruck/DTM-Reserveringen/blob/dev/src/main/resources/static/images/github/maven.png?raw=true)
 
+### Mailservice
+- Make sure to add valid email credentials, use env.example, else application cant run (beans not found exception)
+
 ### Database
 - navigeer naar de `.env.example` file en copy deze file en hernoem het naar `.env`
-- verander de `database`, `name`, `password` en `admin_password`. Waar `database` naar de gewenste database naam wordt verandert, 
-als `name` en `password` de naam en wachtwoord van je database en als `admin_password` een wachtwoord om als admin in te kunnen loggen.
+- verander de `database`, `name`, `password` en `admin_password`. Waar `database` naar de gewenste database naam wordt verandert
+- Email credentials (currently setup for gmail)
+
 
 ## Hoe te gebruiken
 - Navigeer naar `/src/main/java/nl/hu/adsd/dtmreserveringen/DtmReservationsApplication.java`

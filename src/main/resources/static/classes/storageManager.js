@@ -31,7 +31,7 @@ export class StorageManager {
         }
     }
 
-    //todo only use this endpoint in /admin, use different endpoint to get all reservations from requesting user
+    //TODO: only retrieve the non password relevant thing
     static async setReservationsInStorage() {
         try {
             const response = await fetch("/api/reservation/all");

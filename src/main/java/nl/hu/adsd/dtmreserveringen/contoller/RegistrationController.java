@@ -33,7 +33,6 @@ public class RegistrationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid request body");
         }
 
-        //todo instead use custom catch
         if (accountDetailsService.doesAccountExist(accountDTO.username())) {
             logger.info("Username already exists: " + accountDTO.username());
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists");
@@ -45,7 +44,6 @@ public class RegistrationController {
             return ResponseEntity.status(HttpStatus.OK).body("Account created successfully");
 
 
-        //todo specify catch (check .save method)
         } catch (Exception e) {
             logger.error("Failed to register account: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to register account, because of an internal server error");

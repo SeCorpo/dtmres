@@ -24,7 +24,6 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    //todo only if admin, make new endpoint to get reservations of requesting user
     @GetMapping("/all")
     public ResponseEntity<List<Reservation>> getAllReservations() {
         Iterable<Reservation> reservationIterable = reservationService.getAllReservations();

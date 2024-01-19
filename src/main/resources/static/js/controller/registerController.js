@@ -31,14 +31,15 @@ registerButton.addEventListener("click", async e => {
 
     try {
         const response = await registerUser(email, password);
+
         if(response.ok) {
-            alert("Your account with email: " + email + " is created successfully, please log in")
+            alert("Het account met email: " + email + " is aangemaakt\n Login alstublief")
             window.location.replace("/login");
         }
         alert(response.status + ": " + await response.text())
 
-    } catch(error) {
-        alert("An error occurred during registering: " + error.message);
+    } catch(e) {
+        alert("Het account kan op dit moment niet worden geregistreerd, probeer het later opnieuw of laat het weten aan de organisatie\n\n   Error message: '" + e.message + "'");
     }
 });
 
